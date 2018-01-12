@@ -2,10 +2,11 @@
 
 try:
     from urllib.error import URLError, HTTPError
-    from urllib.request import urlopen
+    from urllib.request import urlopen, urlretrieve
 except ImportError:
     # Python 2.X
     from urllib2 import URLError, HTTPError, urlopen
+    from urllib import urlretrieve
 
 try:
     from functools import lru_cache

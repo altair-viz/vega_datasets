@@ -3,86 +3,62 @@ import json
 
 import pandas as pd
 
-from vega_datasets._compat import lru_cache
 from vega_datasets._compat import URLError, HTTPError, urlopen
 
 
-BASE_URL = 'https://vega.github.io/vega-datasets/data/'
+class Dataset(object):
+    """Class to extract and orgainize information about a dataset"""
+    base_url = 'https://vega.github.io/vega-datasets/data/'
+    data_path = os.path.join(os.path.dirname(__file__), 'data')
     
+    def __init__(self, name):
+        info = self._infodict(name)
+        self.filename = info['filename']
+        self.url = self.base_url + info['filename']
+        self.format = info['format']
+        self.is_local = self.filename in os.listdir(self.data_path)
+        self.full_filename = os.path.join(self.data_path, self.filename)
 
-@lru_cache()
-def _datasets_json():
-    json_file = os.path.join(os.path.dirname(__file__), 'datasets.json')
-    with open(json_file) as f:
-        return json.loads(f.read())
+    @classmethod
+    def _datasets_json(cls):
+        json_file = os.path.join(os.path.dirname(__file__), 'datasets.json')
+        with open(json_file) as f:
+            return json.loads(f.read())
+    
+    @classmethod
+    def _infodict(cls, name):
+        info = cls._datasets_json().get(name, None)
+        if info is None:
+            raise ValueError('No such dataset {0} exists, '
+                             'use list_datasets to get a list'.format(name))
+        return info
 
+    def load(self, return_raw=False, use_local=True):
+        if use_local and self.is_local:
+            data = urlopen(self.url)
+        else:
+            data = open(self.full_filename)
+        fmt = self.format
 
-@lru_cache()
-def _dataset_info(name):
-    dataset_info = _datasets_json().get(name, None)
-    if dataset_info is None:
-        raise ValueError('No such dataset {0} exists, '
-                         'use list_datasets to get a list'.format(name))
-    return dataset_info
-
-def dataset_info(name):
-    # return a copy of the lru_cached object in case the user modifies it
-    return _dataset_info(name).copy()
-
-
-def dataset_url(name):
-    dataset_info = _dataset_info(name)    
-    return BASE_URL + dataset_info['filename']
-
-
-def dataset_format(name):
-    dataset_info = _dataset_info(name)
-    return dataset_info['format']
-
+        if return_raw:
+            return data.read()
+        elif self.format == 'json':
+            return pd.read_json(data)
+        elif self.format == 'csv':
+            return pd.read_csv(data)
+        elif self.format == 'tsv':
+            return pd.read_csv(data, sep='\t')
+        else:
+            raise ValueError("Unrecognized file format: {0}. "
+                             "Valid options are ['json', 'csv', 'tsv']."
+                             "".format(fmt))
+    
 
 def list_datasets():
     """List the available datasets."""
-    return sorted(_datasets_json().keys())
+    return sorted(Dataset._datasets_json().keys())
 
 
-def _download_dataset(name):
-    """Load a dataset by name as a pandas.DataFrame.
-
-    The dataset is cached within each Python session using lru_cache.
-
-    Parameters
-    ----------
-    name : string
-        The name of the dataset, which must match one of the names in
-        vega_datasets.list_datasets()
-
-    Returns
-    -------
-    response : HTTPResponse
-        The HTTP response (response.read() will yield the raw dataset contents)
-    format : string
-        The dataset format (i.e. 'json', 'csv', 'tsv')
-    """
-    dataset_info = _dataset_info(name)    
-    url = BASE_URL + dataset_info['filename']
-    fmt = dataset_info['format']
-
-    return urlopen(url), fmt
-    
-    
-def data(name, return_raw=False):
+def data(name, return_raw=False, use_local=True):
     """Load a dataset by name"""
-    response, fmt = _download_dataset(name)
-    
-    if return_raw:
-        return response.read()
-    elif fmt == 'json':
-        return pd.read_json(response)
-    elif fmt == 'csv':
-        return pd.read_csv(response)
-    elif fmt == 'tsv':
-        return pd.read_csv(response, sep='\t')
-    else:
-        raise ValueError("Unrecognized file format: {0}. "
-                         "Valid options are ['json', 'csv', 'tsv']."
-                         "".format(fmt))
+    return Dataset(name).load(return_raw=return_raw, use_local=use_local)
