@@ -5,6 +5,7 @@ import pytest
 from vega_datasets import data, Dataset
 from vega_datasets._compat import urlopen, HTTPError, URLError
 
+
 def connection_ok():
     """Check web connection.
     Returns True if web connection is OK, False otherwise.
@@ -28,6 +29,7 @@ def test_local_iris():
     assert type(iris) is pd.DataFrame
     assert tuple(iris.columns) == ('petalLength', 'petalWidth', 'sepalLength',
                                    'sepalWidth', 'species')
+
 
 @pytest.mark.skipif(not connection_ok(), reason="No internet connection")
 def test_download_iris():
