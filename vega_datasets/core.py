@@ -1,5 +1,6 @@
 import os
 import json
+import pkgutil
 
 import pandas as pd
 
@@ -10,7 +11,7 @@ class Dataset(object):
     """Class to extract and orgainize information about a dataset"""
     base_url = 'https://vega.github.io/vega-datasets/data/'
     data_path = os.path.join(os.path.dirname(__file__), 'data')
-    
+
     def __init__(self, name):
         info = self._infodict(name)
         self.filename = info['filename']
@@ -18,27 +19,27 @@ class Dataset(object):
         self.format = info['format']
         self.is_local = self.filename in os.listdir(self.data_path)
         self.full_filename = os.path.join(self.data_path, self.filename)
+        self.pkgutil_filename = 'data/' + self.filename
 
     @classmethod
     def _datasets_json(cls):
-        json_file = os.path.join(os.path.dirname(__file__), 'datasets.json')
-        with open(json_file) as f:
-            return json.loads(f.read())
-    
+        datasets = pkgutil.get_data('vega_datasets', 'datasets.json')
+        return json.loads(datasets)
+
     @classmethod
     def _infodict(cls, name):
         info = cls._datasets_json().get(name, None)
         if info is None:
             raise ValueError('No such dataset {0} exists, '
-                             'use list_datasets to get a list'.format(name))
+                             'use list_datasets() to get a list '
+                             'of available datasets.'.format(name))
         return info
 
     def load(self, return_raw=False, use_local=True):
         if use_local and self.is_local:
-            data = urlopen(self.url)
+            data = pkgutil.get_data('vega_datasets', self.pkgutil_filename)
         else:
-            data = open(self.full_filename)
-        fmt = self.format
+            data = urlopen(self.url)
 
         if return_raw:
             return data.read()
@@ -51,8 +52,8 @@ class Dataset(object):
         else:
             raise ValueError("Unrecognized file format: {0}. "
                              "Valid options are ['json', 'csv', 'tsv']."
-                             "".format(fmt))
-    
+                             "".format(self.format))
+
 
 def list_datasets():
     """List the available datasets."""
