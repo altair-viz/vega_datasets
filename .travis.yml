@@ -9,13 +9,6 @@ env:
   global:
     - TEST_DIR=/tmp/_vega_datasets/
     - PIP_DEPS="pandas pytest"
-    
-matrix:
-  include:
-  - python: 3.6
-    env: BUILD="docs" INSTALL="pip"
-  allow_failures:
-    - env: BUILD="docs"
 
 before_install:
   - pip install pip --upgrade
