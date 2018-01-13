@@ -19,4 +19,4 @@ install:
 
 script:
   - mkdir -p $TEST_DIR
-  - cd $TEST_DIR && python -m pytest vega_datasets --doctest-modules
+  - cd $TEST_DIR && python -m pytest --pyargs vega_datasets --doctest-modules
