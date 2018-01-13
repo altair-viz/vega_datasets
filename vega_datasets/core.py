@@ -17,9 +17,16 @@ class Dataset(object):
         self.filename = info['filename']
         self.url = self.base_url + info['filename']
         self.format = info['format']
-        self.is_local = self.filename in os.listdir(self.data_path)
-        self.full_filename = os.path.join(self.data_path, self.filename)
         self.pkgutil_filename = 'data/' + self.filename
+
+    @property
+    def is_local(self):
+        try:
+            pkgutil.get_data('vega_datasets', self.pkgutil_filename)
+        except FileNotFoundError:
+            return False
+        else:
+            return True
 
     @classmethod
     def _datasets_json(cls):
@@ -38,12 +45,14 @@ class Dataset(object):
     def load(self, return_raw=False, use_local=True):
         if use_local and self.is_local:
             data = pkgutil.get_data('vega_datasets', self.pkgutil_filename)
+            if return_raw:
+                return data
         else:
             data = urlopen(self.url)
+            if return_raw:
+                return data.read()
 
-        if return_raw:
-            return data.read()
-        elif self.format == 'json':
+        if self.format == 'json':
             return pd.read_json(data)
         elif self.format == 'csv':
             return pd.read_csv(data)
