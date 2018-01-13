@@ -1,0 +1,29 @@
+language: python
+
+python:
+  - 2.7
+  - 3.5
+  - 3.6
+
+env:
+  global:
+    - TEST_DIR=/tmp/_vega_datasets/
+    - PIP_DEPS="pandas pytest"
+    
+matrix:
+  include:
+  - python: 3.6
+    env: BUILD="docs" INSTALL="pip"
+  allow_failures:
+    - env: BUILD="docs"
+
+before_install:
+  - pip install pip --upgrade
+  - pip install pytest
+
+install:
+  - pip install .
+
+script:
+  - mkdir -p $TEST_DIR
+  - cd $TEST_DIR && python -m pytest vega_datasets --doctest-modules
