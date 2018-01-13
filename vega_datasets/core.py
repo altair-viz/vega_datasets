@@ -3,7 +3,7 @@ import pkgutil
 
 import pandas as pd
 
-from vega_datasets._compat import urlopen, BytesIO, lru_cache
+from vega_datasets._compat import urlopen, BytesIO, lru_cache, bytes_decode
 
 
 class Dataset(object):
@@ -47,7 +47,7 @@ class Dataset(object):
     def _datasets_json(cls):
         """load the datasets.json file"""
         datasets = pkgutil.get_data('vega_datasets', 'datasets.json')
-        return json.loads(datasets)
+        return json.loads(bytes_decode(datasets))
 
     @classmethod
     @lru_cache()
