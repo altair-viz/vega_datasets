@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-Release v0.2 (Unreleased)
+Release v0.2 (January 19, 2018)
 -------------------------
 - Substantial API changes, including ability to tab-complete dataset names
 - Added individualized dataset doc strings
