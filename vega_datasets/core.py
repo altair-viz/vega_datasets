@@ -72,6 +72,12 @@ class Dataset(object):
 
     @classmethod
     @lru_cache()
+    def local_datasets(cls):
+        listing = pkgutil.get_data('vega_datasets', 'data/listing.txt')
+        return bytes_decode(listing).split()
+
+    @classmethod
+    @lru_cache()
     def _datasets_json(cls):
         """load the datasets.json file"""
         datasets = pkgutil.get_data('vega_datasets', 'datasets.json')
@@ -90,14 +96,7 @@ class Dataset(object):
 
     @property
     def is_local(self):
-        try:
-            # TODO: can we check the file's existence without loading it fully?
-            #       perhaps keep a list of locally-defined datasets
-            pkgutil.get_data('vega_datasets', self.pkg_filename)
-        except FileNotFoundError:
-            return False
-        else:
-            return True
+        return self.name in self.local_datasets()
 
     def raw(self, use_local=True):
         """Load the raw dataset from remote URL or local file
@@ -170,6 +169,7 @@ class Stocks(Dataset):
         return data
 
     __call__ = dataframe
+
 
 class DataLoader(object):
     """Load a dataset from a local file or remote URL.

@@ -10,12 +10,15 @@ DATASETS_TO_DOWNLOAD = ['iris', 'stocks']
 
 def _download_datasets():
     """Utility to download datasets into package source"""
+    filepath = lambda *args: abspath(join(dirname(__file__), *args))
     for name in DATASETS_TO_DOWNLOAD:
         data = Dataset(name)
         url = data.url
-        filename = join(abspath(dirname(__file__)), data.filename)
+        filename = filepath(data.filename)
         print("retrieving data {0} -> {1}".format(url, filename))
         urlretrieve(url, filename)
+    with open(filepath('listing.txt'), 'w') as f:
+        f.write('\n'.join(DATASETS_TO_DOWNLOAD) + '\n')
 
 
 if __name__ == '__main__':
