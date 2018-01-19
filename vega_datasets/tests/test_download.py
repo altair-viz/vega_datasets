@@ -44,6 +44,12 @@ def test_stock_date_parsing():
     assert all(stocks.dtypes == ['object', 'datetime64[ns]', 'float64'])
 
 
+def test_stock_pivoted():
+    stocks = data.stocks(pivoted=True)
+    assert stocks.index.name == 'date'
+    assert all(stocks.columns == ['AAPL', 'AMZN', 'GOOG', 'IBM', 'MSFT'])
+
+
 @skip_if_no_internet
 def test_download_stock_parsing():
     stocks = data.stocks(use_local=False)

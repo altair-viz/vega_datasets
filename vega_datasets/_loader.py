@@ -57,12 +57,21 @@ class DataLoader(object):
 
     #--------------------------------------------------------------------------
     # specialized methods for individual datasets that need specific processing
-    def stocks(self, return_raw=False, use_local=True, parse_dates=('date',),
-               **kwargs):
-        """A time-series of stock prices from several tech companies"""
+    def stocks(self, pivoted=False, return_raw=False, use_local=True,
+               parse_dates=('date',), **kwargs):
+        """A time-series of stock prices from several tech companies
+
+        Parameters
+        ----------
+        pivoted : boolean
+            If True, then pivot the data so each company is in its own column
+        """
         if type(parse_dates) is tuple:
             parse_dates=list(parse_dates)
-        return self._load_dataset('stocks',
+        data = self._load_dataset('stocks',
                                   return_raw=return_raw,
                                   use_local=use_local,
                                   parse_dates=parse_dates, **kwargs)
+        if pivoted:
+            data = data.pivot(index='date', columns='symbol', values='price')
+        return data
