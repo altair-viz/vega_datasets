@@ -210,6 +210,18 @@ class Stocks(Dataset):
     __call__ = dataframe
 
 
+class Iris(Dataset):
+    name = 'iris'
+    _additional_docs = """
+    Notes
+    -----
+    This classic dataset was introduced by Fisher (1936)
+
+    Fisher,R.A. "The use of multiple measurements in taxonomic problems"
+    Annual Eugenics, 7, Part II, 179-188 (1936)
+    """
+
+
 class Cars(Dataset):
     name = 'cars'
     _additional_docs = """
