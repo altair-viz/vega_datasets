@@ -17,7 +17,7 @@ def test_iris_two_ways():
 
 
 def test_local_iris():
-    assert Dataset('iris').is_local
+    assert data.iris.is_local
 
     iris = data.iris(use_local=True)
     assert type(iris) is pd.DataFrame

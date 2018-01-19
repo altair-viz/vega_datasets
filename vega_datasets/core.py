@@ -8,14 +8,28 @@ from vega_datasets._compat import urlopen, BytesIO, lru_cache, bytes_decode
 
 
 class Dataset(object):
-    """Class to download a particular dataset
+    """Class to load a particular dataset by name"""
 
-    Parameters
-    ----------
-    name : string
-        The name of the dataset. This should be one of the options available
-        in Dataset.list_datasets()
+    _instance_doc = """Loader for the {name} dataset.
 
+    Usage:
+
+        >>> from vega_datasets import data
+        >>> df = data.{methodname}()
+
+    Equivalently, you can use
+
+        >>> df = data('{name}')
+
+    To get the raw dataset rather than the dataframe, use
+
+        >>> df_bytes = data.{methodname}.raw()
+
+    To find the dataset url, use
+
+        >>> data.{methodname}.url
+        '{url}'
+    {additional_docs}
     Attributes
     ----------
     filename : string
@@ -23,12 +37,15 @@ class Dataset(object):
     url : string
         The full URL of the dataset at http://vega.github.io
     format : string
-        The format of the dataset: usually one of {'csv', 'tsv', 'json'}
+        The format of the dataset: usually one of {{'csv', 'tsv', 'json'}}
     pkg_filename : string
         The path to the local dataset within the vega_datasets package
     is_local : bool
         True if the dataset is available locally in the package
+    filepath : string
+        If is_local is True, the local file path to the dataset.
     """
+    _additional_docs = ""
     base_url = 'https://vega.github.io/vega-datasets/data/'
 
     @classmethod
@@ -40,10 +57,13 @@ class Dataset(object):
     def __init__(self, name):
         info = self._infodict(name)
         self.name = name
+        self.methodname = name.replace('-', '_')
         self.filename = info['filename']
         self.url = self.base_url + info['filename']
         self.format = info['format']
         self.pkg_filename = 'data/' + self.filename
+        self.__doc__ = self._instance_doc.format(additional_docs=self._additional_docs,
+                                                 **self.__dict__)
 
     @classmethod
     def list_datasets(cls):
@@ -71,6 +91,8 @@ class Dataset(object):
     @property
     def is_local(self):
         try:
+            # TODO: can we check the file's existence without loading it fully?
+            #       perhaps keep a list of locally-defined datasets
             pkgutil.get_data('vega_datasets', self.pkg_filename)
         except FileNotFoundError:
             return False
@@ -136,11 +158,16 @@ class Dataset(object):
 
 class Stocks(Dataset):
     name = 'stocks'
+    _additional_docs = """
+    The stocks dataset supports pivoted output using the `pivoted` keyword,
+    which defaults to False:
 
-    def __call__(self, pivoted=False, use_local=True, return_raw=False, **kwargs):
+        >>> df_pivoted = data.stocks(pivoted=True)
+    """
+
+    def __call__(self, pivoted=False, use_local=True, **kwargs):
         kwargs['pivoted'] = pivoted
-        return super(Stocks, self).__call__(use_local=use_local,
-                                            return_raw=return_raw, **kwargs)
+        return super(Stocks, self).__call__(use_local=use_local, **kwargs)
 
     def dataframe(self, pivoted=False, use_local=True, **kwargs):
         if 'parse_dates' not in kwargs:
@@ -186,7 +213,10 @@ class DataLoader(object):
 
     def __call__(self, name, return_raw=False, use_local=True, **kwargs):
         loader = getattr(self, name.replace('-', '_'))
-        return loader(return_raw=False, use_local=True, **kwargs)
+        if return_raw:
+            return loader.raw(use_local=use_local, **kwargs)
+        else:
+            return loader(use_local=use_local, **kwargs)
 
     def __getattr__(self, dataset_name):
         if dataset_name in self._datasets:
