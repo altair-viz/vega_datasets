@@ -1,5 +1,4 @@
-from vega_datasets._dataset import list_datasets, Dataset
-from vega_datasets._loader import DataLoader
+from vega_datasets.core import Dataset, DataLoader
 
 data = DataLoader()
 
