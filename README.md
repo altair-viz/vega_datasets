@@ -6,9 +6,11 @@ A Python package for offline access to [vega datasets](https://github.com/vega/v
 
 This package has several goals:
 
-- Provide straightforward access to the datasets in [vega-datasets](https://github.com/vega/vega-datasets).
+- Provide straightforward access in Python to the datasets made available at [vega-datasets](https://github.com/vega/vega-datasets).
 - return the results in the form of a Pandas dataframe.
 - wherever dataset size and/or license constraints make it possible, bundle the dataset with the package so that datasets can be loaded in the absence of a web connection.
+
+Currently the package bundles a half-dozen datasets, and falls back to using HTTP requests for the others.
 
 ## Installation
 
@@ -43,7 +45,14 @@ If you're curious about the source data, you can access the URL for any of the a
 ```python
 >>> data.iris.url
 'https://vega.github.io/vega-datasets/data/iris.json'
-````
+```
+
+For datasets bundled with the package, you can also find their location on disk:
+
+```python
+>>> data.iris.filepath
+'/lib/python3.6/site-packages/vega_datasets/data/iris.json'
+```
 
 ## Available Datasets
 
@@ -62,4 +71,3 @@ To list local datasets (i.e. those that are bundled with the package and can be 
 ```
 
 We plan to add more local datasets in the future.
-
