@@ -210,6 +210,18 @@ class Stocks(Dataset):
     __call__ = dataframe
 
 
+class Cars(Dataset):
+    name = 'cars'
+    _additional_docs = """
+    Notes
+    -----
+    This dataset appeared originally at http://lib.stat.cmu.edu/datasets/
+
+    Donoho, David and Ramos, Ernesto (1982), ``PRIMDATA:
+      Data Sets for Use With PRIM-H'' (DRAFT).
+    """
+
+
 class DataLoader(object):
     """Load a dataset from a local file or remote URL.
 
