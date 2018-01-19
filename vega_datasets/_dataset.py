@@ -69,7 +69,7 @@ class Dataset(object):
         else:
             return True
 
-    def load(self, return_raw=False, use_local=True):
+    def load(self, return_raw=False, use_local=True, **kwargs):
         """Load the dataset from remote URL or local file
 
         Parameters
@@ -81,6 +81,9 @@ class Dataset(object):
             If True (default), then attempt to load the dataset locally. If
             False or if the dataset is not available locally, then load the
             data from an external URL.
+        **kwargs :
+            additional keyword arguments are passed to pd.read_json() or
+            pd.read_csv(), depending on the format of the data source
         """
         if use_local and self.is_local:
             data = BytesIO(pkgutil.get_data('vega_datasets', self.pkg_filename))
@@ -90,11 +93,11 @@ class Dataset(object):
         if return_raw:
             return data.read()
         elif self.format == 'json':
-            return pd.read_json(data)
+            return pd.read_json(data, **kwargs)
         elif self.format == 'csv':
-            return pd.read_csv(data)
+            return pd.read_csv(data, **kwargs)
         elif self.format == 'tsv':
-            return pd.read_csv(data, sep='\t')
+            return pd.read_csv(data, sep='\t', **kwargs)
         else:
             raise ValueError("Unrecognized file format: {0}. "
                              "Valid options are ['json', 'csv', 'tsv']."
@@ -104,22 +107,3 @@ class Dataset(object):
 def list_datasets():
     """Return a list of the available dataset names."""
     return Dataset.list_datasets()
-
-
-def data(name, return_raw=False, use_local=True):
-    """Load a dataset from a local file or remote URL.
-
-    Parameters
-    ----------
-    name : string
-        The name of the dataset. This should be one of the options available
-        in list_datasets()
-    return_raw : boolean
-        If True, then return the raw string or bytes.
-        If False (default), then return a pandas dataframe.
-    use_local : boolean
-        If True (default), then attempt to load the dataset locally. If
-        False or if the dataset is not available locally, then load the
-        data from an external URL.
-    """
-    return Dataset(name).load(return_raw=return_raw, use_local=use_local)
