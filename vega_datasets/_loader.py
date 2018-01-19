@@ -31,12 +31,19 @@ class DataLoader(object):
     _datasets = {name.replace('-', '_'): name for name in Dataset.list_datasets()}
 
     def _method_factory(self, name):
-        def get_dataset(return_raw=False, use_local=True):
-            return self(self._datasets[name], return_raw=return_raw, use_local=use_local)
+        def get_dataset(return_raw=False, use_local=True, **kwargs):
+            return self._load_dataset(self._datasets[name],
+                                      return_raw=return_raw,
+                                      use_local=use_local,
+                                      **kwargs)
         return get_dataset
 
-    def __call__(self, name, return_raw=False, use_local=True, **kwds):
-        return Dataset(name).load(return_raw=return_raw, use_local=use_local, **kwds)
+    def _load_dataset(self, name, **kwargs):
+        return Dataset(name).load(**kwargs)
+
+    def __call__(self, name, return_raw=False, use_local=True, **kwargs):
+        loader = getattr(self, name.replace('-', '_'))
+        return loader(return_raw=False, use_local=True, **kwargs)
 
     def __getattr__(self, attr):
         if attr in self._datasets:
@@ -46,3 +53,15 @@ class DataLoader(object):
 
     def __dir__(self):
         return list(self._datasets.keys())
+
+    #--------------------------------------------------------------------------
+    # specialized methods for individual datasets that need specific processing
+    def stocks(self, return_raw=False, use_local=True, parse_dates=('date',),
+               **kwargs):
+        """A time-series of stock prices from several tech companies"""
+        if type(parse_dates) is tuple:
+            parse_dates=list(parse_dates)
+        return self._load_dataset('stocks',
+                                  return_raw=return_raw,
+                                  use_local=use_local,
+                                  parse_dates=parse_dates, **kwargs)

@@ -6,6 +6,16 @@ from vega_datasets import data, Dataset
 from vega_datasets.utils import connection_ok
 
 
+skip_if_no_internet = pytest.mark.skipif(not connection_ok(),
+                                         reason="No internet connection")
+
+
+def test_iris_two_ways():
+    iris1 = data.iris()
+    iris2 = data('iris')
+    assert iris1.equals(iris2)
+
+
 def test_local_iris():
     assert Dataset('iris').is_local
 
@@ -18,7 +28,7 @@ def test_local_iris():
     assert type(iris) is bytes
 
 
-@pytest.mark.skipif(not connection_ok(), reason="No internet connection")
+@skip_if_no_internet
 def test_download_iris():
     iris = data.iris(use_local=False)
     assert type(iris) is pd.DataFrame
@@ -27,3 +37,9 @@ def test_download_iris():
 
     iris = data.iris(use_local=False, return_raw=True)
     assert type(iris) is bytes
+
+
+@skip_if_no_internet
+def test_stock_date_parsing():
+    stocks = data.stocks()
+    assert all(stocks.dtypes == ['object', 'datetime64[ns]', 'float64'])
