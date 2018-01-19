@@ -2,7 +2,7 @@ from os.path import abspath, join, dirname
 import sys
 
 sys.path.insert(1, abspath(join(dirname(__file__), '..', '..')))
-from vega_datasets import Dataset
+from vega_datasets.core import Dataset
 from vega_datasets._compat import urlretrieve
 
 DATASETS_TO_DOWNLOAD = ['iris', 'stocks']
@@ -10,7 +10,8 @@ DATASETS_TO_DOWNLOAD = ['iris', 'stocks']
 
 def _download_datasets():
     """Utility to download datasets into package source"""
-    filepath = lambda *args: abspath(join(dirname(__file__), *args))
+    def filepath(*args):
+        return abspath(join(dirname(__file__), *args))
     for name in DATASETS_TO_DOWNLOAD:
         data = Dataset(name)
         url = data.url

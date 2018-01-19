@@ -8,12 +8,12 @@ from vega_datasets._compat import urlopen, BytesIO, bytes_decode
 
 
 def _load_dataset_info():
-    """This loads dataset info from two files:
+    """This loads dataset info from two package files:
 
     vega_datasets/datasets.json
     vega_datasets/data/listing.txt
 
-    It returns a dictionary with dataset information
+    It returns a dictionary with dataset information.
     """
     info = pkgutil.get_data('vega_datasets', 'datasets.json')
     info = json.loads(bytes_decode(info))
@@ -71,6 +71,7 @@ class Dataset(object):
 
     @classmethod
     def init(cls, name):
+        """Return an instance of this class or an appropriate subclass"""
         clsdict = {subcls.name: subcls for subcls in cls.__subclasses__()
                    if hasattr(subcls, 'name')}
         return clsdict.get(name, cls)(name)
@@ -163,10 +164,24 @@ class Dataset(object):
 class Stocks(Dataset):
     name = 'stocks'
     _additional_docs = """
-    The stocks dataset supports pivoted output using the `pivoted` keyword,
-    which defaults to False:
+    For convenience, the stocks dataset supports pivoted output using the
+    optional `pivoted` keyword. If pivoted is set to True, each company's
+    price history will be returned in a separate column:
+
+        >>> df = data.stocks()  # not pivoted
+        >>> df.head(3)
+          symbol       date  price
+        0   MSFT 2000-01-01  39.81
+        1   MSFT 2000-02-01  36.35
+        2   MSFT 2000-03-01  43.22
 
         >>> df_pivoted = data.stocks(pivoted=True)
+        >>> df_pivoted.head()
+        symbol       AAPL   AMZN  GOOG     IBM   MSFT
+        date
+        2000-01-01  25.94  64.56   NaN  100.52  39.81
+        2000-02-01  28.66  68.87   NaN   92.11  36.35
+        2000-03-01  33.95  67.00   NaN  106.11  43.22
     """
 
     def dataframe(self, pivoted=False, use_local=True, **kwargs):
@@ -208,7 +223,8 @@ class DataLoader(object):
         additional keyword arguments are passed to the pandas parsing function,
         either ``read_csv()`` or ``read_json()`` depending on the data format.
     """
-    _datasets = {name.replace('-', '_'): name for name in Dataset.list_datasets()}
+    _datasets = {name.replace('-', '_'): name
+                 for name in Dataset.list_datasets()}
 
     def list_datasets(self):
         return Dataset.list_datasets()

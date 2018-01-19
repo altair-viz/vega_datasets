@@ -1,4 +1,4 @@
-from vega_datasets import Dataset
+from vega_datasets.core import Dataset
 from vega_datasets._compat import urlopen, HTTPError, URLError
 
 
@@ -7,7 +7,7 @@ def connection_ok():
     Returns True if web connection is OK, False otherwise.
     """
     try:
-        response = urlopen(Dataset.base_url, timeout=1)
+        urlopen(Dataset.base_url, timeout=1)
         # if an index page is ever added, this will pass through
         return True
     except HTTPError:

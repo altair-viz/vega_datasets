@@ -2,7 +2,7 @@ import pandas as pd
 
 import pytest
 
-from vega_datasets import data, Dataset
+from vega_datasets import data
 from vega_datasets.utils import connection_ok
 
 
