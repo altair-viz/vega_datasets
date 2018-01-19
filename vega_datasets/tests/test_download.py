@@ -39,7 +39,12 @@ def test_download_iris():
     assert type(iris) is bytes
 
 
-@skip_if_no_internet
 def test_stock_date_parsing():
     stocks = data.stocks()
+    assert all(stocks.dtypes == ['object', 'datetime64[ns]', 'float64'])
+
+
+@skip_if_no_internet
+def test_download_stock_parsing():
+    stocks = data.stocks(use_local=False)
     assert all(stocks.dtypes == ['object', 'datetime64[ns]', 'float64'])
