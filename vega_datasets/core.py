@@ -141,11 +141,7 @@ class Dataset(object):
                              "Valid options are ['json', 'csv', 'tsv']."
                              "".format(self.format))
 
-    def __call__(self, use_local=True, return_raw=False, **kwargs):
-        if return_raw:
-            return self.raw(use_local=use_local, **kwargs)
-        else:
-            return self.dataframe(use_local=use_local, **kwargs)
+    __call__ = dataframe
 
     @property
     def filepath(self):
@@ -165,10 +161,6 @@ class Stocks(Dataset):
         >>> df_pivoted = data.stocks(pivoted=True)
     """
 
-    def __call__(self, pivoted=False, use_local=True, **kwargs):
-        kwargs['pivoted'] = pivoted
-        return super(Stocks, self).__call__(use_local=use_local, **kwargs)
-
     def dataframe(self, pivoted=False, use_local=True, **kwargs):
         if 'parse_dates' not in kwargs:
             kwargs['parse_dates'] = ['date']
@@ -177,6 +169,7 @@ class Stocks(Dataset):
             data = data.pivot(index='date', columns='symbol', values='price')
         return data
 
+    __call__ = dataframe
 
 class DataLoader(object):
     """Load a dataset from a local file or remote URL.

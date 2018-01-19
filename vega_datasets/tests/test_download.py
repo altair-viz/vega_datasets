@@ -24,7 +24,7 @@ def test_local_iris():
     assert tuple(iris.columns) == ('petalLength', 'petalWidth', 'sepalLength',
                                    'sepalWidth', 'species')
 
-    iris = data.iris(use_local=True, return_raw=True)
+    iris = data.iris.raw(use_local=True)
     assert type(iris) is bytes
 
 
@@ -35,7 +35,7 @@ def test_download_iris():
     assert tuple(iris.columns) == ('petalLength', 'petalWidth', 'sepalLength',
                                    'sepalWidth', 'species')
 
-    iris = data.iris(use_local=False, return_raw=True)
+    iris = data.iris.raw(use_local=False)
     assert type(iris) is bytes
 
 
