@@ -4,7 +4,27 @@ import pkgutil
 
 import pandas as pd
 
-from vega_datasets._compat import urlopen, BytesIO, lru_cache, bytes_decode
+from vega_datasets._compat import urlopen, BytesIO, bytes_decode
+
+
+def _load_dataset_info():
+    """This loads dataset info from two files:
+
+    vega_datasets/datasets.json
+    vega_datasets/data/listing.txt
+
+    It returns a dictionary with dataset information
+    """
+    info = pkgutil.get_data('vega_datasets', 'datasets.json')
+    info = json.loads(bytes_decode(info))
+
+    local = pkgutil.get_data('vega_datasets', 'data/listing.txt')
+    local = bytes_decode(local).split()
+
+    for name in info:
+        info[name]['is_local'] = (name in local)
+
+    return info
 
 
 class Dataset(object):
@@ -47,6 +67,7 @@ class Dataset(object):
     """
     _additional_docs = ""
     base_url = 'https://vega.github.io/vega-datasets/data/'
+    _dataset_info = _load_dataset_info()
 
     @classmethod
     def init(cls, name):
@@ -62,41 +83,29 @@ class Dataset(object):
         self.url = self.base_url + info['filename']
         self.format = info['format']
         self.pkg_filename = 'data/' + self.filename
+        self.is_local = info['is_local']
         self.__doc__ = self._instance_doc.format(additional_docs=self._additional_docs,
                                                  **self.__dict__)
 
     @classmethod
     def list_datasets(cls):
         """Return a list of names of available datasets"""
-        return sorted(cls._datasets_json().keys())
+        return sorted(cls._dataset_info.keys())
 
     @classmethod
-    @lru_cache()
-    def local_datasets(cls):
-        listing = pkgutil.get_data('vega_datasets', 'data/listing.txt')
-        return bytes_decode(listing).split()
+    def list_local_datasets(cls):
+        return sorted(name for name, info in cls._dataset_info.items()
+                      if info['is_local'])
 
     @classmethod
-    @lru_cache()
-    def _datasets_json(cls):
-        """load the datasets.json file"""
-        datasets = pkgutil.get_data('vega_datasets', 'datasets.json')
-        return json.loads(bytes_decode(datasets))
-
-    @classmethod
-    @lru_cache()
     def _infodict(cls, name):
         """load the info dictionary for the given name"""
-        info = cls._datasets_json().get(name, None)
+        info = cls._dataset_info.get(name, None)
         if info is None:
             raise ValueError('No such dataset {0} exists, '
                              'use list_datasets() to get a list '
                              'of available datasets.'.format(name))
         return info
-
-    @property
-    def is_local(self):
-        return self.name in self.local_datasets()
 
     def raw(self, use_local=True):
         """Load the raw dataset from remote URL or local file
@@ -134,7 +143,7 @@ class Dataset(object):
             return pd.read_csv(datasource, **kwargs)
         elif self.format == 'tsv':
             kwargs['sep'] = '\t'
-            return pd.read_csv(datasource, sep='\t', **kwargs)
+            return pd.read_csv(datasource, **kwargs)
         else:
             raise ValueError("Unrecognized file format: {0}. "
                              "Valid options are ['json', 'csv', 'tsv']."
