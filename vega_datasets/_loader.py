@@ -7,6 +7,7 @@ class DataLoader(object):
     There are two ways to call this; for example to load the iris dataset, you
     can call this object and pass the dataset name by string:
 
+        >>> from vega_datasets import data
         >>> df = data('iris')
 
     or you can call the associated named method:

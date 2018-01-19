@@ -1,2 +1,2 @@
 test:
-	py.test vega_datasets
+	python -m pytest --pyargs vega_datasets --doctest-modules

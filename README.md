@@ -1,6 +1,6 @@
 # vega_datasets
 
-[![build status](http://img.shields.io/travis/jakevdp/vega_datasets/master.svg?style=flat)](https://travis-ci.org/jakevdp/vega_datasetsxs)
+[![build status](http://img.shields.io/travis/jakevdp/vega_datasets/master.svg?style=flat)](https://travis-ci.org/jakevdp/vega_datasets)
 
 A Python package for offline access to [vega datasets](https://github.com/vega/vega-datasets).
 
