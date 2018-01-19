@@ -32,10 +32,16 @@ class Dataset(object):
 
     _instance_doc = """Loader for the {name} dataset.
 
-    Usage:
+    {bundle_info}
+    Dataset source: {url}
+
+    Usage
+    -----
 
         >>> from vega_datasets import data
         >>> df = data.{methodname}()
+        >>> type(df)
+        pandas.core.frame.DataFrame
 
     Equivalently, you can use
 
@@ -43,7 +49,9 @@ class Dataset(object):
 
     To get the raw dataset rather than the dataframe, use
 
-        >>> df_bytes = data.{methodname}.raw()
+        >>> data_bytes = data.{methodname}.raw()
+        >>> type(data_bytes)
+        bytes
 
     To find the dataset url, use
 
@@ -85,7 +93,14 @@ class Dataset(object):
         self.format = info['format']
         self.pkg_filename = 'data/' + self.filename
         self.is_local = info['is_local']
+        if self.is_local:
+            bundle_info = ("This dataset is bundled with vega_datasets; "
+                           "it can be loaded without web access.")
+        else:
+            bundle_info = ("This dataset is not bundled with vega_datasets; "
+                           "it requires web access to load.")
         self.__doc__ = self._instance_doc.format(additional_docs=self._additional_docs,
+                                                 bundle_info=bundle_info,
                                                  **self.__dict__)
 
     @classmethod
