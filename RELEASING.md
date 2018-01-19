@@ -4,7 +4,7 @@
 
 3. Commit change and push to master
 
-       git add vega_datasets -u
+       git add . -u
        git commit -m "MAINT: bump version to 0.2"
        git push origin master
 
@@ -19,9 +19,11 @@
 
 6. update version in vega_datasets/__init__.py to, e.g. 0.3.0dev0
 
-7. Commit change and push to master
+7. add a new changelog entry for the unreleased version
 
-       git add vega_datasets -u
+8. Commit change and push to master
+
+       git add . -u
        git commit -m "MAINT: bump version to 0.3.0dev"
        git push origin master
 
