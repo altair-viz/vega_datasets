@@ -210,18 +210,6 @@ class Stocks(Dataset):
     __call__ = dataframe
 
 
-class Iris(Dataset):
-    name = 'iris'
-    _additional_docs = """
-    Notes
-    -----
-    This classic dataset was introduced by Fisher (1936)
-
-    Fisher,R.A. "The use of multiple measurements in taxonomic problems"
-    Annual Eugenics, 7, Part II, 179-188 (1936)
-    """
-
-
 class Cars(Dataset):
     name = 'cars'
     _additional_docs = """
@@ -231,6 +219,39 @@ class Cars(Dataset):
 
     Donoho, David and Ramos, Ernesto (1982), ``PRIMDATA:
       Data Sets for Use With PRIM-H'' (DRAFT).
+    """
+
+
+class SeattleTemps(Dataset):
+    name = 'seattle-temps'
+    _additional_docs = """
+    Notes
+    -----
+    This dataset is drawn from public-domain
+    `NOAA data <https://www.weather.gov/disclaimer>`_`, and modified by
+    scripts available at http://github.com/vega/vega_datasets/
+    """
+
+
+class SeattleWeather(Dataset):
+    name = 'seattle-weather'
+    _additional_docs = """
+    Notes
+    -----
+    This dataset is drawn from public-domain
+    `NOAA data <https://www.weather.gov/disclaimer>`_`, and modified by
+    scripts available at http://github.com/vega/vega_datasets/
+    """
+
+
+class SFTemps(Dataset):
+    name = 'sf-temps'
+    _additional_docs = """
+    Notes
+    -----
+    This dataset is drawn from public-domain
+    `NOAA data <https://www.weather.gov/disclaimer>`_`, and modified by
+    scripts available at http://github.com/vega/vega_datasets/
     """
 
 
@@ -267,6 +288,9 @@ class DataLoader(object):
 
     def list_datasets(self):
         return Dataset.list_datasets()
+
+    def list_local_datasets(self):
+        return Dataset.list_local_datasets()
 
     def __call__(self, name, return_raw=False, use_local=True, **kwargs):
         loader = getattr(self, name.replace('-', '_'))
