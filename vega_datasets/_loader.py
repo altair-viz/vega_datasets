@@ -64,7 +64,8 @@ class DataLoader(object):
         Parameters
         ----------
         pivoted : boolean
-            If True, then pivot the data so each company is in its own column
+            If True, then pivot the data so each company is in its own column.
+            Not referenced if return_raw is True.
         """
         if type(parse_dates) is tuple:
             parse_dates=list(parse_dates)
@@ -72,6 +73,6 @@ class DataLoader(object):
                                   return_raw=return_raw,
                                   use_local=use_local,
                                   parse_dates=parse_dates, **kwargs)
-        if pivoted:
+        if pivoted and not return_raw:
             data = data.pivot(index='date', columns='symbol', values='price')
         return data
