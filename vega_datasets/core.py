@@ -72,8 +72,15 @@ class Dataset(object):
         True if the dataset is available locally in the package
     filepath : string
         If is_local is True, the local file path to the dataset.
+
+    Reference
+    ---------
+    {reference_info}
     """
     _additional_docs = ""
+    _reference_info = """
+    For information on this dataset, see https://github.com/vega/vega-datasets/
+    """
     base_url = 'https://vega.github.io/vega-datasets/data/'
     _dataset_info = _load_dataset_info()
     _pd_read_kwds = {}
@@ -101,6 +108,7 @@ class Dataset(object):
             bundle_info = ("This dataset is not bundled with vega_datasets; "
                            "it requires web access to load.")
         self.__doc__ = self._instance_doc.format(additional_docs=self._additional_docs,
+                                                 reference_info=self._reference_info.lstrip(),
                                                  bundle_info=bundle_info,
                                                  **self.__dict__)
 
@@ -215,34 +223,44 @@ class Stocks(Dataset):
 
 class Anscombe(Dataset):
     name = 'anscombe'
-    _additional_docs = """
-    Notes
-    -----
+    _reference_info = """
     This dataset was originally proposed by Francis Anscombe:
 
-    Anscombe, F. J. (1973). "Graphs in Statistical Analysis".
-    American Statistician. 27 (1): 17–21. JSTOR 2682899.
+    .. [1] Anscombe, F. J. (1973). "Graphs in Statistical Analysis".
+       American Statistician. 27 (1): 17–21. JSTOR 2682899.
+    """
+
+class Barley(Dataset):
+    name = 'barley'
+    _reference_info = """
+    This dataset was originally published by Immer (1934), and was popularized
+    by Fisher (1947) and Cleveland (1993).
+
+    .. [1] Immer, F.R., Hayes, H.D. and LeRoy Powers (1934)
+       Statistical determination of barley varietal adaptation.
+       Journal of the American Society for Agronomy 26, 403–419.
+
+    .. [2] Fisher, R.A. (1947) The Design of Experiments. 4th edition.
+       Edinburgh: Oliver and Boyd.
+
+    .. [3] Cleveland, WS (1993) Visualizing data. Hobart Press
     """
 
 
 class Cars(Dataset):
     name = 'cars'
-    _additional_docs = """
-    Notes
-    -----
+    _reference_info = """
     This dataset appeared originally at http://lib.stat.cmu.edu/datasets/
 
-    Donoho, David and Ramos, Ernesto (1982), ``PRIMDATA:
-      Data Sets for Use With PRIM-H'' (DRAFT).
+    .. [1] Donoho, David and Ramos, Ernesto (1982), ``PRIMDATA:
+           Data Sets for Use With PRIM-H'' (DRAFT).
     """
     _pd_read_kwds = {'convert_dates': ['Year']}
 
 
 class SeattleTemps(Dataset):
     name = 'seattle-temps'
-    _additional_docs = """
-    Notes
-    -----
+    _reference_info = """
     This dataset is drawn from public-domain
     `NOAA data <https://www.weather.gov/disclaimer>`_, and transformed
     using scripts available at http://github.com/vega/vega_datasets/
@@ -252,9 +270,7 @@ class SeattleTemps(Dataset):
 
 class SeattleWeather(Dataset):
     name = 'seattle-weather'
-    _additional_docs = """
-    Notes
-    -----
+    _reference_info = """
     This dataset is drawn from public-domain
     `NOAA data <https://www.weather.gov/disclaimer>`_, and transformed
     using scripts available at http://github.com/vega/vega_datasets/
@@ -264,9 +280,7 @@ class SeattleWeather(Dataset):
 
 class SFTemps(Dataset):
     name = 'sf-temps'
-    _additional_docs = """
-    Notes
-    -----
+    _reference_info = """
     This dataset is drawn from public-domain
     `NOAA data <https://www.weather.gov/disclaimer>`_, and transformed
     using scripts available at http://github.com/vega/vega_datasets/
