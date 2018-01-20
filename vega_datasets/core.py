@@ -210,6 +210,18 @@ class Stocks(Dataset):
     __call__ = dataframe
 
 
+class Anscombe(Dataset):
+    name = 'anscombe'
+    _additional_docs = """
+    Notes
+    -----
+    This dataset was originally proposed by Francis Anscombe:
+
+    Anscombe, F. J. (1973). "Graphs in Statistical Analysis".
+    American Statistician. 27 (1): 17–21. JSTOR 2682899.
+    """
+
+
 class Cars(Dataset):
     name = 'cars'
     _additional_docs = """
@@ -228,8 +240,8 @@ class SeattleTemps(Dataset):
     Notes
     -----
     This dataset is drawn from public-domain
-    `NOAA data <https://www.weather.gov/disclaimer>`_`, and modified by
-    scripts available at http://github.com/vega/vega_datasets/
+    `NOAA data <https://www.weather.gov/disclaimer>`_, and transformed
+    using scripts available at http://github.com/vega/vega_datasets/
     """
 
 
@@ -239,8 +251,8 @@ class SeattleWeather(Dataset):
     Notes
     -----
     This dataset is drawn from public-domain
-    `NOAA data <https://www.weather.gov/disclaimer>`_`, and modified by
-    scripts available at http://github.com/vega/vega_datasets/
+    `NOAA data <https://www.weather.gov/disclaimer>`_, and transformed
+    using scripts available at http://github.com/vega/vega_datasets/
     """
 
 
@@ -250,8 +262,8 @@ class SFTemps(Dataset):
     Notes
     -----
     This dataset is drawn from public-domain
-    `NOAA data <https://www.weather.gov/disclaimer>`_`, and modified by
-    scripts available at http://github.com/vega/vega_datasets/
+    `NOAA data <https://www.weather.gov/disclaimer>`_, and transformed
+    using scripts available at http://github.com/vega/vega_datasets/
     """
 
 
