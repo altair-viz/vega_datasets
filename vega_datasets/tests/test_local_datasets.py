@@ -45,3 +45,11 @@ def test_cars_column_names():
 
     cars = data.cars.raw()
     assert type(cars) is bytes
+
+
+@pytest.mark.parametrize('name,col', [('cars', 'Year',), ('stocks', 'date'),
+                                      ('seattle-weather', 'date'),
+                                      ('seattle-temps', 'date'),
+                                      ('sf-temps', 'date')])
+def test_date_types(name, col):
+    assert data(name)[col].dtype == 'datetime64[ns]'

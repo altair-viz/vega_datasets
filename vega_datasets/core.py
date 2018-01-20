@@ -76,6 +76,7 @@ class Dataset(object):
     _additional_docs = ""
     base_url = 'https://vega.github.io/vega-datasets/data/'
     _dataset_info = _load_dataset_info()
+    _pd_read_kwds = {}
 
     @classmethod
     def init(cls, name):
@@ -153,13 +154,16 @@ class Dataset(object):
         """
         datasource = BytesIO(self.raw(use_local))
 
+        kwds = self._pd_read_kwds.copy()
+        kwds.update(kwargs)
+
         if self.format == 'json':
-            return pd.read_json(datasource, **kwargs)
+            return pd.read_json(datasource, **kwds)
         elif self.format == 'csv':
-            return pd.read_csv(datasource, **kwargs)
+            return pd.read_csv(datasource, **kwds)
         elif self.format == 'tsv':
             kwargs['sep'] = '\t'
-            return pd.read_csv(datasource, **kwargs)
+            return pd.read_csv(datasource, **kwds)
         else:
             raise ValueError("Unrecognized file format: {0}. "
                              "Valid options are ['json', 'csv', 'tsv']."
@@ -198,10 +202,9 @@ class Stocks(Dataset):
         2000-02-01  28.66  68.87   NaN   92.11  36.35
         2000-03-01  33.95  67.00   NaN  106.11  43.22
     """
+    _pd_read_kwds = {'parse_dates': ['date']}
 
     def dataframe(self, pivoted=False, use_local=True, **kwargs):
-        if 'parse_dates' not in kwargs:
-            kwargs['parse_dates'] = ['date']
         data = super(Stocks, self).dataframe(use_local=use_local, **kwargs)
         if pivoted:
             data = data.pivot(index='date', columns='symbol', values='price')
@@ -232,6 +235,7 @@ class Cars(Dataset):
     Donoho, David and Ramos, Ernesto (1982), ``PRIMDATA:
       Data Sets for Use With PRIM-H'' (DRAFT).
     """
+    _pd_read_kwds = {'convert_dates': ['Year']}
 
 
 class SeattleTemps(Dataset):
@@ -243,6 +247,7 @@ class SeattleTemps(Dataset):
     `NOAA data <https://www.weather.gov/disclaimer>`_, and transformed
     using scripts available at http://github.com/vega/vega_datasets/
     """
+    _pd_read_kwds = {'parse_dates': ['date']}
 
 
 class SeattleWeather(Dataset):
@@ -254,6 +259,7 @@ class SeattleWeather(Dataset):
     `NOAA data <https://www.weather.gov/disclaimer>`_, and transformed
     using scripts available at http://github.com/vega/vega_datasets/
     """
+    _pd_read_kwds = {'parse_dates': ['date']}
 
 
 class SFTemps(Dataset):
@@ -265,6 +271,7 @@ class SFTemps(Dataset):
     `NOAA data <https://www.weather.gov/disclaimer>`_, and transformed
     using scripts available at http://github.com/vega/vega_datasets/
     """
+    _pd_read_kwds = {'parse_dates': ['date']}
 
 
 class DataLoader(object):
