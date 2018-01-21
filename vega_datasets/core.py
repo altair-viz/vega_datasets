@@ -31,7 +31,7 @@ class Dataset(object):
     """Class to load a particular dataset by name"""
 
     _instance_doc = """Loader for the {name} dataset.
-
+    {data_description}
     {bundle_info}
     Dataset source: {url}
 
@@ -77,6 +77,7 @@ class Dataset(object):
     ---------
     {reference_info}
     """
+    _data_description = ""
     _additional_docs = ""
     _reference_info = """
     For information on this dataset, see https://github.com/vega/vega-datasets/
@@ -109,6 +110,7 @@ class Dataset(object):
                            "it requires web access to load.")
         self.__doc__ = self._instance_doc.format(additional_docs=self._additional_docs,
                                                  reference_info=self._reference_info.lstrip(),
+                                                 data_description=self._data_description,
                                                  bundle_info=bundle_info,
                                                  **self.__dict__)
 
@@ -190,6 +192,10 @@ class Dataset(object):
 
 class Stocks(Dataset):
     name = 'stocks'
+    _data_description = """
+    Daily closing stock prices for AAPL, AMZN, GOOG, IBM, and MSFT
+    between 2000 and 2010.
+    """
     _additional_docs = """
     For convenience, the stocks dataset supports pivoted output using the
     optional `pivoted` keyword. If pivoted is set to True, each company's
@@ -223,6 +229,11 @@ class Stocks(Dataset):
 
 class Anscombe(Dataset):
     name = 'anscombe'
+    _data_description = """
+    Anscombe's Quartet is a famous dataset constructed by Francis Anscombe [1]_.
+    Common summary statistics are identical for each subset of the data, despite
+    the subsets having vastly different characteristics.
+    """
     _reference_info = """
     This dataset was originally proposed by Francis Anscombe:
 
@@ -232,6 +243,10 @@ class Anscombe(Dataset):
 
 class Barley(Dataset):
     name = 'barley'
+    _data_description = """
+    This dataset contains crop yields over different regions and different
+    years in the 1930s. It was originally published by Immer in 1934 [1]_.
+    """
     _reference_info = """
     This dataset was originally published by Immer (1934), and was popularized
     by Fisher (1947) and Cleveland (1993).
@@ -256,6 +271,18 @@ class Cars(Dataset):
            Data Sets for Use With PRIM-H'' (DRAFT).
     """
     _pd_read_kwds = {'convert_dates': ['Year']}
+
+
+class Crimea(Dataset):
+    name = 'crimea'
+    _dataset_info = """
+    This dataset was originally published in 1958 by Florence Nightingale [1]_
+    in connection with her famous "Coxcomb" charts
+    """
+    _reference_info = """
+    .. [1] Nightingale, Florence (1858) "Notes on Matters Affecting the Health,
+       Efficiency and Hospital Administration of the British Army" RCIN 1075240
+    """
 
 
 class SeattleTemps(Dataset):
