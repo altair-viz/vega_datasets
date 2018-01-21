@@ -1,6 +1,7 @@
 import os
 import json
 import pkgutil
+import textwrap
 
 import pandas as pd
 
@@ -15,14 +16,22 @@ def _load_dataset_info():
 
     It returns a dictionary with dataset information.
     """
-    info = pkgutil.get_data('vega_datasets', 'datasets.json')
-    info = json.loads(bytes_decode(info))
+    def load_json(path):
+        raw = pkgutil.get_data('vega_datasets', path)
+        return json.loads(bytes_decode(raw))
 
-    local = pkgutil.get_data('vega_datasets', 'data/listing.txt')
-    local = bytes_decode(local).split()
+    def load_txt(path):
+        raw = pkgutil.get_data('vega_datasets', path)
+        return bytes_decode(raw).split()
+
+    info = load_json('datasets.json')
+    descriptions = load_json('dataset_info.json')
+    local_datasets = load_txt('data/listing.txt')
 
     for name in info:
-        info[name]['is_local'] = (name in local)
+        info[name]['is_local'] = (name in local_datasets)
+    for name in descriptions:
+        info[name].update(descriptions[name])
 
     return info
 
@@ -31,7 +40,9 @@ class Dataset(object):
     """Class to load a particular dataset by name"""
 
     _instance_doc = """Loader for the {name} dataset.
+
     {data_description}
+
     {bundle_info}
     Dataset source: {url}
 
@@ -73,11 +84,8 @@ class Dataset(object):
     filepath : string
         If is_local is True, the local file path to the dataset.
 
-    Reference
-    ---------
     {reference_info}
     """
-    _data_description = ""
     _additional_docs = ""
     _reference_info = """
     For information on this dataset, see https://github.com/vega/vega-datasets/
@@ -102,17 +110,44 @@ class Dataset(object):
         self.format = info['format']
         self.pkg_filename = 'data/' + self.filename
         self.is_local = info['is_local']
+        self.__doc__ = self._make_docstring()
+
+    def _make_docstring(self):
+        info = self._infodict(name)
+
+        # construct, indent, and line-wrap dataset description
+        description = info.get('description', '')
+        if not description:
+            description = ('This dataset is described at '
+                           'https://github.com/vega/vega-datasets/')
+        wrapper = textwrap.TextWrapper(width=70, initial_indent='',
+                                       subsequent_indent=4 * ' ')
+        description = '\n'.join(wrapper.wrap(description))
+
+        # construct, indent, and join references
+        references = info.get('references', [])
+        references = ('.. [{0}] '.format(i + 1) + ref
+                      for i, ref in enumerate(references))
+        wrapper = textwrap.TextWrapper(width=70, initial_indent=4 * ' ',
+                                       subsequent_indent=7 * ' ')
+        references = ('\n'.join(wrapper.wrap(ref)) for ref in references)
+        references = '\n\n'.join(references)
+        if references.strip():
+            references = "References\n    ----------\n" + references
+
+        # add information about bundling of data
         if self.is_local:
             bundle_info = ("This dataset is bundled with vega_datasets; "
                            "it can be loaded without web access.")
         else:
             bundle_info = ("This dataset is not bundled with vega_datasets; "
                            "it requires web access to load.")
-        self.__doc__ = self._instance_doc.format(additional_docs=self._additional_docs,
-                                                 reference_info=self._reference_info.lstrip(),
-                                                 data_description=self._data_description,
-                                                 bundle_info=bundle_info,
-                                                 **self.__dict__)
+
+        return self._instance_doc.format(additional_docs=self._additional_docs,
+                                         data_description=description,
+                                         reference_info=references,
+                                         bundle_info=bundle_info,
+                                         **self.__dict__)
 
     @classmethod
     def list_datasets(cls):
@@ -192,10 +227,6 @@ class Dataset(object):
 
 class Stocks(Dataset):
     name = 'stocks'
-    _data_description = """
-    Daily closing stock prices for AAPL, AMZN, GOOG, IBM, and MSFT
-    between 2000 and 2010.
-    """
     _additional_docs = """
     For convenience, the stocks dataset supports pivoted output using the
     optional `pivoted` keyword. If pivoted is set to True, each company's
@@ -227,91 +258,23 @@ class Stocks(Dataset):
     __call__ = dataframe
 
 
-class Anscombe(Dataset):
-    name = 'anscombe'
-    _data_description = """
-    Anscombe's Quartet is a famous dataset constructed by Francis Anscombe [1]_.
-    Common summary statistics are identical for each subset of the data, despite
-    the subsets having vastly different characteristics.
-    """
-    _reference_info = """
-    This dataset was originally proposed by Francis Anscombe:
-
-    .. [1] Anscombe, F. J. (1973). "Graphs in Statistical Analysis".
-       American Statistician. 27 (1): 17–21. JSTOR 2682899.
-    """
-
-class Barley(Dataset):
-    name = 'barley'
-    _data_description = """
-    This dataset contains crop yields over different regions and different
-    years in the 1930s. It was originally published by Immer in 1934 [1]_.
-    """
-    _reference_info = """
-    This dataset was originally published by Immer (1934), and was popularized
-    by Fisher (1947) and Cleveland (1993).
-
-    .. [1] Immer, F.R., Hayes, H.D. and LeRoy Powers (1934)
-       Statistical determination of barley varietal adaptation.
-       Journal of the American Society for Agronomy 26, 403–419.
-
-    .. [2] Fisher, R.A. (1947) The Design of Experiments. 4th edition.
-       Edinburgh: Oliver and Boyd.
-
-    .. [3] Cleveland, WS (1993) Visualizing data. Hobart Press
-    """
-
-
 class Cars(Dataset):
     name = 'cars'
-    _reference_info = """
-    This dataset appeared originally at http://lib.stat.cmu.edu/datasets/
-
-    .. [1] Donoho, David and Ramos, Ernesto (1982), ``PRIMDATA:
-           Data Sets for Use With PRIM-H'' (DRAFT).
-    """
     _pd_read_kwds = {'convert_dates': ['Year']}
-
-
-class Crimea(Dataset):
-    name = 'crimea'
-    _dataset_info = """
-    This dataset was originally published in 1958 by Florence Nightingale [1]_
-    in connection with her famous "Coxcomb" charts
-    """
-    _reference_info = """
-    .. [1] Nightingale, Florence (1858) "Notes on Matters Affecting the Health,
-       Efficiency and Hospital Administration of the British Army" RCIN 1075240
-    """
 
 
 class SeattleTemps(Dataset):
     name = 'seattle-temps'
-    _reference_info = """
-    This dataset is drawn from public-domain
-    `NOAA data <https://www.weather.gov/disclaimer>`_, and transformed
-    using scripts available at http://github.com/vega/vega_datasets/
-    """
     _pd_read_kwds = {'parse_dates': ['date']}
 
 
 class SeattleWeather(Dataset):
     name = 'seattle-weather'
-    _reference_info = """
-    This dataset is drawn from public-domain
-    `NOAA data <https://www.weather.gov/disclaimer>`_, and transformed
-    using scripts available at http://github.com/vega/vega_datasets/
-    """
     _pd_read_kwds = {'parse_dates': ['date']}
 
 
 class SFTemps(Dataset):
     name = 'sf-temps'
-    _reference_info = """
-    This dataset is drawn from public-domain
-    `NOAA data <https://www.weather.gov/disclaimer>`_, and transformed
-    using scripts available at http://github.com/vega/vega_datasets/
-    """
     _pd_read_kwds = {'parse_dates': ['date']}
 
 

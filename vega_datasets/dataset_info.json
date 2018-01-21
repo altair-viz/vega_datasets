@@ -1,0 +1,46 @@
+{
+  "anscombe" : {
+    "description" : "Anscombe's Quartet is a famous dataset constructed by Francis Anscombe [1]_. Common summary statistics are identical for each subset of the data, despite the subsets having vastly different characteristics.",
+    "references" : [
+      "Anscombe, F. J. (1973). 'Graphs in Statistical Analysis'. American Statistician. 27 (1): 17–21. JSTOR 2682899."
+    ]
+  },
+  "barley" : {
+    "description" : "This dataset contains crop yields over different regions and different years in the 1930s. It was originally published by Immer in 1934 [1]_, and was popularized by Fisher (1947) [2]_ and Cleveland (1993) [3]_.",
+    "references" : [
+      "Immer, F.R., Hayes, H.D. and LeRoy Powers (1934) Statistical determination of barley varietal adaptation. Journal of the American Society for Agronomy 26, 403-419.",
+      "Fisher, R.A. (1947) The Design of Experiments. 4th edition. Edinburgh: Oliver and Boyd.",
+      "Cleveland, WS (1993) Visualizing data. Hobart Press"
+    ]
+  },
+  "cars" : {
+    "description": "Acceleration, horsepower, fuel efficiency, weight, and other characteristics of different makes and models of cars. This dataset was originally published by Donoho et al (1982) [1]_, and was made public at http://lib.stat.cmu.edu/datasets/",
+    "references": [
+      "Donoho, David and Ramos, Ernesto (1982), ``PRIMDATA:  Data Sets for Use With PRIM-H'' (DRAFT)."
+    ]
+  },
+  "crimea" : {
+    "description": "A dataset of monthly casualty counts during the Crimean war. This was originally published in 1858 by Florence Nightingale [1]_ in connection with her famous 'Coxcomb' charts",
+    "references": [
+      "Nightingale, F. (1858) 'Notes on Matters Affecting the Health, Efficiency and Hospital Administration of the British Army'. RCIN 1075240"
+    ]
+  },
+  "iris" : {
+    "description" : "This classic dataset contains lengths and widths of petals and sepals for 150 iris flowers, drawn from three species. It was introduced by R.A. Fisher in 1936 [1]_.",
+    "references" : [
+      "R. A. Fisher (1936). 'The use of multiple measurements in taxonomic problems'. Annals of Eugenics. 7 (2): 179-188."
+    ]
+  },
+  "seattle-weather" : {
+    "description" : "This dataset contains precipitation totals, temperature extremes, wind speed, and weather type recorded daily in Seattle from 2012 to 2015. The dataset is drawn from public-domain `NOAA data <https://www.weather.gov/disclaimer>`_, and transformed using scripts available at http://github.com/vega/vega_datasets/."
+  },
+  "seattle-temps" : {
+    "description" : "This dataset contains hourly temperatures in Seattle during the full year of 2010. The dataset is drawn from public-domain `NOAA data <https://www.weather.gov/disclaimer>`_, and transformed using scripts available at http://github.com/vega/vega_datasets/."
+  },
+  "sf-temps" : {
+    "description" : "This dataset contains hourly temperatures in San Francisco during the full year of 2010. The dataset is drawn from public-domain `NOAA data <https://www.weather.gov/disclaimer>`_, and transformed using scripts available at http://github.com/vega/vega_datasets/."
+  },
+  "stocks" : {
+    "description" : "Daily closing stock prices for AAPL, AMZN, GOOG, IBM, and MSFT between 2000 and 2010."
+  }
+}
