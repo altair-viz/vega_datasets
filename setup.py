@@ -64,7 +64,7 @@ setup(name=NAME,
                 'vega_datasets.tests',
             ],
       package_data={'vega_datasets': ['datasets.json',
-                                      'dataset_info.json'
+                                      'dataset_info.json',
                                       os.path.join('data', 'listing.txt'),
                                       os.path.join('data', '*.json'),
                                       os.path.join('data', '*.csv'),
