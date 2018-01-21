@@ -113,7 +113,7 @@ class Dataset(object):
         self.__doc__ = self._make_docstring()
 
     def _make_docstring(self):
-        info = self._infodict(name)
+        info = self._infodict(self.name)
 
         # construct, indent, and line-wrap dataset description
         description = info.get('description', '')

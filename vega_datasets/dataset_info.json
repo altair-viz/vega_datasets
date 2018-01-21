@@ -20,7 +20,7 @@
     ]
   },
   "crimea" : {
-    "description": "A dataset of monthly casualty counts during the Crimean war. This was originally published in 1858 by Florence Nightingale [1]_ in connection with her famous 'Coxcomb' charts",
+    "description": "A dataset of monthly casualty counts during the Crimean war. This was originally published in 1858 by Florence Nightingale [1]_ in connection with her famous 'Coxcomb' charts.",
     "references": [
       "Nightingale, F. (1858) 'Notes on Matters Affecting the Health, Efficiency and Hospital Administration of the British Army'. RCIN 1075240"
     ]
