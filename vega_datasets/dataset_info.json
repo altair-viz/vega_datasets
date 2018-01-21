@@ -2,7 +2,7 @@
   "anscombe" : {
     "description" : "Anscombe's Quartet is a famous dataset constructed by Francis Anscombe [1]_. Common summary statistics are identical for each subset of the data, despite the subsets having vastly different characteristics.",
     "references" : [
-      "Anscombe, F. J. (1973). 'Graphs in Statistical Analysis'. American Statistician. 27 (1): 17–21. JSTOR 2682899."
+      "Anscombe, F. J. (1973). 'Graphs in Statistical Analysis'. American Statistician. 27 (1): 17-21. JSTOR 2682899."
     ]
   },
   "barley" : {
