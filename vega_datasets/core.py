@@ -263,6 +263,31 @@ class Cars(Dataset):
     _pd_read_kwds = {'convert_dates': ['Year']}
 
 
+class Climate(Dataset):
+    name = 'climate'
+    _pd_read_kwds = {'convert_dates': ['DATE']}
+
+
+class Github(Dataset):
+    name = 'github'
+    _pd_read_kwds = {'parse_dates': ['time']}
+
+
+class Miserables(Dataset):
+    name = 'miserables'
+    _additional_docs = """
+    The miserables data contains two dataframes, ``nodes`` and ``links``,
+    both of which are returned from this function.
+    """
+    def dataframe(self, use_local=True, **kwargs):
+        dct = json.loads(bytes_decode(self.raw()))
+        nodes = pd.DataFrame.from_records(dct['nodes'], index='index')
+        links = pd.DataFrame.from_records(dct['links'])
+        return nodes, links
+
+    __call__ = dataframe
+
+
 class SeattleTemps(Dataset):
     name = 'seattle-temps'
     _pd_read_kwds = {'parse_dates': ['date']}
@@ -276,6 +301,16 @@ class SeattleWeather(Dataset):
 class SFTemps(Dataset):
     name = 'sf-temps'
     _pd_read_kwds = {'parse_dates': ['date']}
+
+
+class Sp500(Dataset):
+    name = 'sp500'
+    _pd_read_kwds = {'parse_dates': ['date']}
+
+
+class UnemploymentAcrossIndustries(Dataset):
+    name = 'unemployment-across-industries'
+    _pd_read_kwds = {'convert_dates': ['date']}
 
 
 class DataLoader(object):

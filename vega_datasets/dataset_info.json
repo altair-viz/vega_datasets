@@ -1,4 +1,7 @@
 {
+  "airports" : {
+    "description" : "List of information on US airports, including airport code, city, state, latitude, and longitude. This dataset is a subset of the public domain data compiled and published at http://ourairports.com/data/."
+  },
   "anscombe" : {
     "description" : "Anscombe's Quartet is a famous dataset constructed by Francis Anscombe [1]_. Common summary statistics are identical for each subset of the data, despite the subsets having vastly different characteristics.",
     "references" : [
@@ -20,7 +23,7 @@
     ]
   },
   "crimea" : {
-    "description": "A dataset of monthly casualty counts during the Crimean war. This was originally published in 1858 by Florence Nightingale [1]_ in connection with her famous 'Coxcomb' charts.",
+    "description": "This is a dataset containing monthly casualty counts from the Crimean war. It was originally published in 1858 by Florence Nightingale [1]_ in connection with her famous 'Coxcomb' charts.",
     "references": [
       "Nightingale, F. (1858) 'Notes on Matters Affecting the Health, Efficiency and Hospital Administration of the British Army'. RCIN 1075240"
     ]

@@ -1,8 +1,10 @@
+airports
 anscombe
 barley
 cars
+crimea
 iris
-stocks
 seattle-temps
-sf-temps
 seattle-weather
+sf-temps
+stocks

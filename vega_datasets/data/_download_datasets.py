@@ -5,8 +5,16 @@ sys.path.insert(1, abspath(join(dirname(__file__), '..', '..')))
 from vega_datasets.core import Dataset
 from vega_datasets._compat import urlretrieve
 
-DATASETS_TO_DOWNLOAD = ['anscombe', 'barley', 'cars', 'iris', 'stocks', 
-                        'seattle-temps', 'sf-temps', 'seattle-weather']
+DATASETS_TO_DOWNLOAD = ['airports',
+                        'anscombe',
+                        'barley',
+                        'cars',
+                        'crimea',
+                        'iris',
+                        'seattle-temps',
+                        'seattle-weather',
+                        'sf-temps',
+                        'stocks']
 
 
 def _download_datasets():
