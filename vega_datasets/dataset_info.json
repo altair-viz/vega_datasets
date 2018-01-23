@@ -1,6 +1,6 @@
 {
   "airports" : {
-    "description" : "List of information on US airports, including airport code, city, state, latitude, and longitude. This dataset is a subset of the public domain data compiled and published at http://ourairports.com/data/."
+    "description" : "This dataset lists US airports, including airport code, city, state, latitude, and longitude. This dataset is a subset of the data compiled and published at http://ourairports.com/data/, and is in the public domain."
   },
   "anscombe" : {
     "description" : "Anscombe's Quartet is a famous dataset constructed by Francis Anscombe [1]_. Common summary statistics are identical for each subset of the data, despite the subsets having vastly different characteristics.",
