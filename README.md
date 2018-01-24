@@ -67,7 +67,19 @@ To list local datasets (i.e. those that are bundled with the package and can be 
 
 ```python
 >>> data.list_local_datasets()
-['cars', 'iris', 'seattle-temps', 'seattle-weather', 'sf-temps', 'stocks']
+['airports', 'anscombe', 'barley', 'burtin', 'cars', 'crimea', 'iris', 'seattle-temps', 'seattle-weather', 'sf-temps', 'stocks']
 ```
 
 We plan to add more local datasets in the future.
+
+## Dataset Information
+
+If you want more information about any dataset, you can use the ``description`` property:
+
+```python
+>>> data.iris.description
+'This classic dataset contains lengths and widths of petals and sepals for 150 iris flowers, drawn from three species. It was introduced by R.A. Fisher in 1936 [1]_.'
+```
+
+This information is also part of the ``data.iris`` doc string.
+Descriptions are not yet included for all the datasets in the package; we hope to add more information on this in the future.

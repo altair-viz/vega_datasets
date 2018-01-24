@@ -107,6 +107,7 @@ class Dataset(object):
         self.format = info['format']
         self.pkg_filename = 'data/' + self.filename
         self.is_local = info['is_local']
+        self.description = info['description']
         self.__doc__ = self._make_docstring()
 
     def _make_docstring(self):
