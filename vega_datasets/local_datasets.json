@@ -1,0 +1,13 @@
+{
+  "airports": "data/airports.csv",
+  "anscombe": "data/anscombe.json",
+  "barley": "data/barley.json",
+  "burtin": "data/burtin.json",
+  "cars": "data/cars.json",
+  "crimea": "data/crimea.json",
+  "iris": "data/iris.json",
+  "seattle-temps": "data/seattle-temps.csv",
+  "seattle-weather": "data/seattle-weather.csv",
+  "sf-temps": "data/sf-temps.csv",
+  "stocks": "data/stocks.csv"
+}

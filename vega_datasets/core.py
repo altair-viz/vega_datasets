@@ -12,7 +12,8 @@ def _load_dataset_info():
     """This loads dataset info from two package files:
 
     vega_datasets/datasets.json
-    vega_datasets/data/listing.txt
+    vega_datasets/dataset_info.json
+    vega_datasets/local_datasets.json
 
     It returns a dictionary with dataset information.
     """
@@ -20,13 +21,9 @@ def _load_dataset_info():
         raw = pkgutil.get_data('vega_datasets', path)
         return json.loads(bytes_decode(raw))
 
-    def load_txt(path):
-        raw = pkgutil.get_data('vega_datasets', path)
-        return bytes_decode(raw).split()
-
     info = load_json('datasets.json')
     descriptions = load_json('dataset_info.json')
-    local_datasets = load_txt('data/listing.txt')
+    local_datasets = load_json('local_datasets.json')
 
     for name in info:
         info[name]['is_local'] = (name in local_datasets)

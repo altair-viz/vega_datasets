@@ -16,6 +16,9 @@
       "Cleveland, WS (1993) Visualizing data. Hobart Press"
     ]
   },
+  "burtin" : {
+    "description": "This is a famous dataset gathered by Will Burtin to explore the effectiveness of various antibiotics in treating a variety of bacterial infections. The data was first published in 1951; this dataset comes from https://github.com/mbostock/protovis, and is published there under a BSD license."
+  },
   "cars" : {
     "description": "Acceleration, horsepower, fuel efficiency, weight, and other characteristics of different makes and models of cars. This dataset was originally published by Donoho et al (1982) [1]_, and was made public at http://lib.stat.cmu.edu/datasets/",
     "references": [
@@ -34,11 +37,11 @@
       "R. A. Fisher (1936). 'The use of multiple measurements in taxonomic problems'. Annals of Eugenics. 7 (2): 179-188."
     ]
   },
-  "seattle-weather" : {
-    "description" : "This dataset contains precipitation totals, temperature extremes, wind speed, and weather type recorded daily in Seattle from 2012 to 2015. The dataset is drawn from public-domain `NOAA data <https://www.weather.gov/disclaimer>`_, and transformed using scripts available at http://github.com/vega/vega_datasets/."
-  },
   "seattle-temps" : {
     "description" : "This dataset contains hourly temperatures in Seattle during the full year of 2010. The dataset is drawn from public-domain `NOAA data <https://www.weather.gov/disclaimer>`_, and transformed using scripts available at http://github.com/vega/vega_datasets/."
+  },
+  "seattle-weather" : {
+    "description" : "This dataset contains precipitation totals, temperature extremes, wind speed, and weather type recorded daily in Seattle from 2012 to 2015. The dataset is drawn from public-domain `NOAA data <https://www.weather.gov/disclaimer>`_, and transformed using scripts available at http://github.com/vega/vega_datasets/."
   },
   "sf-temps" : {
     "description" : "This dataset contains hourly temperatures in San Francisco during the full year of 2010. The dataset is drawn from public-domain `NOAA data <https://www.weather.gov/disclaimer>`_, and transformed using scripts available at http://github.com/vega/vega_datasets/."

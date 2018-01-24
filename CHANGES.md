@@ -3,6 +3,9 @@ Change Log
 
 Release v0.3 (Unreleased)
 -------------------------
+- Added dataset_info.json to store all descriptions and references in one location. Docstrings are automatically constructed from this file.
+- Added default date conversions for a number of datasets
+- Bundled several more datasets: [airports, anscombe, barley, burtin, crimea]
 
 Release v0.2 (January 19, 2018)
 -------------------------------
