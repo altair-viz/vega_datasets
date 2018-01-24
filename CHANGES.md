@@ -1,6 +1,9 @@
 Change Log
 ==========
 
+Release v0.4 (Unreleased)
+-------------------------
+
 Release v0.3 (January 24, 2018)
 -------------------------------
 - Added dataset_info.json to store all descriptions and references in one location. Docstrings are automatically constructed from this file.
