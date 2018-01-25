@@ -14,6 +14,8 @@ def test_load_local_dataset(name):
     assert df1.equals(df2)
 
     raw = loader.raw()
+    raw2 = data(name, return_raw=True)
+    assert raw == raw2
     assert type(raw) is bytes
 
 

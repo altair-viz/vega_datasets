@@ -1,4 +1,7 @@
+import pytest
+
 from vega_datasets import data
+
 
 def test_metadata():
     all_datasets = data.list_datasets()
@@ -6,9 +9,14 @@ def test_metadata():
     for name in all_datasets:
         dataobj = getattr(data, name.replace('-', '_'))
 
-        # Local datasets should all have a description defined
         if name in local_datasets:
+            # Local datasets should all have a description defined
             assert len(dataobj.description) > 0
+            assert len(dataobj.filepath) > 0
+        else:
+            with pytest.raises(ValueError) as err:
+                path = dataobj.filepath
+            assert str(err.value) == "filepath is only valid for local datasets"
 
         # Descriptions should either be defined, or be None
         assert dataobj.description is None or len(dataobj.description) > 0
