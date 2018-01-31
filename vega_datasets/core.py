@@ -47,13 +47,13 @@ class Dataset(object):
     -----
 
         >>> from vega_datasets import data
-        >>> df = data.{methodname}()
-        >>> type(df)
-        pandas.core.frame.DataFrame
+        >>> {methodname} = data.{methodname}()
+        >>> type({methodname})
+        {return_type}
 
     Equivalently, you can use
 
-        >>> df = data('{name}')
+        >>> {methodname} = data('{name}')
 
     To get the raw dataset rather than the dataframe, use
 
@@ -90,6 +90,7 @@ class Dataset(object):
     base_url = 'https://vega.github.io/vega-datasets/data/'
     _dataset_info = _load_dataset_info()
     _pd_read_kwds = {}
+    _return_type = pd.DataFrame
 
     @classmethod
     def init(cls, name):
@@ -146,6 +147,7 @@ class Dataset(object):
                                          data_description=description,
                                          reference_info=references,
                                          bundle_info=bundle_info,
+                                         return_type=self._return_type,
                                          **self.__dict__)
 
     @classmethod
@@ -183,8 +185,8 @@ class Dataset(object):
         else:
             return urlopen(self.url).read()
 
-    def dataframe(self, use_local=True, **kwargs):
-        """Load the dataset from remote URL or local file
+    def __call__(self, use_local=True, **kwargs):
+        """Load and parse the dataset from remote URL or local file
 
         Parameters
         ----------
@@ -193,8 +195,9 @@ class Dataset(object):
             False or if the dataset is not available locally, then load the
             data from an external URL.
         **kwargs :
-            additional keyword arguments are passed to pd.read_json() or
-            pd.read_csv(), depending on the format of the data source
+            additional keyword arguments are passed to data parser (usually
+            pd.read_csv or pd.read_json, depending on the format of the data
+            source)
         """
         datasource = BytesIO(self.raw(use_local))
 
@@ -212,8 +215,6 @@ class Dataset(object):
             raise ValueError("Unrecognized file format: {0}. "
                              "Valid options are ['json', 'csv', 'tsv']."
                              "".format(self.format))
-
-    __call__ = dataframe
 
     @property
     def filepath(self):
@@ -248,13 +249,27 @@ class Stocks(Dataset):
     """
     _pd_read_kwds = {'parse_dates': ['date']}
 
-    def dataframe(self, pivoted=False, use_local=True, **kwargs):
-        data = super(Stocks, self).dataframe(use_local=use_local, **kwargs)
+    def __call__(self, pivoted=False, use_local=True, **kwargs):
+        """Load and parse the dataset from remote URL or local file
+
+        Parameters
+        ----------
+        pivoted : boolean, default False
+            If True, then pivot data so that each stock is in its own column.
+        use_local : boolean
+            If True (default), then attempt to load the dataset locally. If
+            False or if the dataset is not available locally, then load the
+            data from an external URL.
+        **kwargs :
+            additional keyword arguments are passed to data parser (usually
+            pd.read_csv or pd.read_json, depending on the format of the data
+            source)
+        """
+        __doc__ = super(Stocks, self).__call__.__doc__
+        data = super(Stocks, self).__call__(use_local=use_local, **kwargs)
         if pivoted:
             data = data.pivot(index='date', columns='symbol', values='price')
         return data
-
-    __call__ = dataframe
 
 
 class Cars(Dataset):
@@ -267,6 +282,15 @@ class Climate(Dataset):
     _pd_read_kwds = {'convert_dates': ['DATE']}
 
 
+class Driving(Dataset):
+    name = 'driving'
+    def __call__(self, use_local=True, **kwargs):
+        __doc__ = super(Driving, self).__call__.__doc__
+        datasource = BytesIO(self.raw(use_local))
+        df = pd.read_json(datasource)
+        return df.set_index('year')
+
+
 class Github(Dataset):
     name = 'github'
     _pd_read_kwds = {'parse_dates': ['time']}
@@ -274,17 +298,17 @@ class Github(Dataset):
 
 class Miserables(Dataset):
     name = 'miserables'
+    _return_type = tuple
     _additional_docs = """
     The miserables data contains two dataframes, ``nodes`` and ``links``,
     both of which are returned from this function.
     """
-    def dataframe(self, use_local=True, **kwargs):
-        dct = json.loads(bytes_decode(self.raw()))
+    def __call__(self, use_local=True, **kwargs):
+        __doc__ = super(Miserables, self).__call__.__doc__
+        dct = json.loads(bytes_decode(self.raw(use_local=use_local)))
         nodes = pd.DataFrame.from_records(dct['nodes'], index='index')
         links = pd.DataFrame.from_records(dct['links'])
         return nodes, links
-
-    __call__ = dataframe
 
 
 class SeattleTemps(Dataset):
@@ -310,6 +334,32 @@ class Sp500(Dataset):
 class UnemploymentAcrossIndustries(Dataset):
     name = 'unemployment-across-industries'
     _pd_read_kwds = {'convert_dates': ['date']}
+
+
+class US_10M(Dataset):
+    name = 'us-10m'
+    _return_type = dict
+    _additional_docs = """
+    The us-10m dataset is a TopoJSON file, with a structure that is not
+    suitable for storage in a dataframe. For this reason, the loader returns
+    a simple Python dictionary.
+    """
+    def __call__(self, use_local=True, **kwargs):
+        __doc__ = super(US_10M, self).__call__.__doc__
+        return json.loads(bytes_decode(self.raw(use_local=use_local)))
+
+
+class World_110M(Dataset):
+    name = 'world-110m'
+    _return_type = dict
+    _additional_docs = """
+    The world-100m dataset is a TopoJSON file, with a structure that is not
+    suitable for storage in a dataframe. For this reason, the loader returns
+    a simple Python dictionary.
+    """
+    def __call__(self, use_local=True, **kwargs):
+        __doc__ = super(World_110M, self).__call__.__doc__
+        return json.loads(bytes_decode(self.raw(use_local=use_local)))
 
 
 class DataLoader(object):
