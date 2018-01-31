@@ -38,7 +38,6 @@ def test_download_stock_parsing():
     assert all(stocks.dtypes == ['object', 'datetime64[ns]', 'float64'])
 
 
-@skip_if_no_internet
 def test_driving_index():
     driving = data.driving()
     assert driving.index.name == 'year'
@@ -55,6 +54,7 @@ def test_miserables_parsing():
 def test_us_10m_parsing():
     us_10m = data.us_10m()
     assert type(us_10m) is dict
+
 
 @skip_if_no_internet
 def test_world_110m_parsing():
