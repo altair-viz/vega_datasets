@@ -31,6 +31,12 @@
       "Nightingale, F. (1858) 'Notes on Matters Affecting the Health, Efficiency and Hospital Administration of the British Army'. RCIN 1075240"
     ]
   },
+  "driving" : {
+    "description": "This dataset tracks miles driven per capita along with gas prices annually from 1956 to 2010. It is based on the May 2, 2010 New York Times article 'Driving Shifts Into Reverse'. See http://mbostock.github.io/protovis/ex/driving.html.",
+    "references": [
+      "Fairfield, Hannah. 'Driving Shifts Into Reverse.' New York Times, May 2, 2010"
+    ]
+  },
   "iris" : {
     "description" : "This classic dataset contains lengths and widths of petals and sepals for 150 iris flowers, drawn from three species. It was introduced by R.A. Fisher in 1936 [1]_.",
     "references" : [
