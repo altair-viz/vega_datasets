@@ -198,8 +198,13 @@ class Dataset(object):
             additional keyword arguments are passed to data parser (usually
             pd.read_csv or pd.read_json, depending on the format of the data
             source)
+
+        Returns
+        -------
+        data :
+            parsed data
         """
-        datasource = BytesIO(self.raw(use_local))
+        datasource = BytesIO(self.raw(use_local=use_local))
 
         kwds = self._pd_read_kwds.copy()
         kwds.update(kwargs)
@@ -264,6 +269,11 @@ class Stocks(Dataset):
             additional keyword arguments are passed to data parser (usually
             pd.read_csv or pd.read_json, depending on the format of the data
             source)
+
+        Returns
+        -------
+        data : DataFrame
+            parsed data
         """
         __doc__ = super(Stocks, self).__call__.__doc__
         data = super(Stocks, self).__call__(use_local=use_local, **kwargs)
@@ -286,9 +296,8 @@ class Driving(Dataset):
     name = 'driving'
     def __call__(self, use_local=True, **kwargs):
         __doc__ = super(Driving, self).__call__.__doc__
-        datasource = BytesIO(self.raw(use_local))
-        df = pd.read_json(datasource)
-        return df.set_index('year')
+        data = super(Driving, self).__call__(use_local=use_local, **kwargs)
+        return data.set_index('year')
 
 
 class Github(Dataset):
@@ -305,7 +314,7 @@ class Miserables(Dataset):
     """
     def __call__(self, use_local=True, **kwargs):
         __doc__ = super(Miserables, self).__call__.__doc__
-        dct = json.loads(bytes_decode(self.raw(use_local=use_local)))
+        dct = json.loads(bytes_decode(self.raw(use_local=use_local)), **kwargs)
         nodes = pd.DataFrame.from_records(dct['nodes'], index='index')
         links = pd.DataFrame.from_records(dct['links'])
         return nodes, links
@@ -346,7 +355,7 @@ class US_10M(Dataset):
     """
     def __call__(self, use_local=True, **kwargs):
         __doc__ = super(US_10M, self).__call__.__doc__
-        return json.loads(bytes_decode(self.raw(use_local=use_local)))
+        return json.loads(bytes_decode(self.raw(use_local=use_local)), **kwargs)
 
 
 class World_110M(Dataset):
@@ -359,7 +368,7 @@ class World_110M(Dataset):
     """
     def __call__(self, use_local=True, **kwargs):
         __doc__ = super(World_110M, self).__call__.__doc__
-        return json.loads(bytes_decode(self.raw(use_local=use_local)))
+        return json.loads(bytes_decode(self.raw(use_local=use_local)), **kwargs)
 
 
 class DataLoader(object):
@@ -396,9 +405,6 @@ class DataLoader(object):
     def list_datasets(self):
         return Dataset.list_datasets()
 
-    def list_local_datasets(self):
-        return Dataset.list_local_datasets()
-
     def __call__(self, name, return_raw=False, use_local=True, **kwargs):
         loader = getattr(self, name.replace('-', '_'))
         if return_raw:
@@ -414,3 +420,21 @@ class DataLoader(object):
 
     def __dir__(self):
         return list(self._datasets.keys())
+
+
+class LocalDataLoader(DataLoader):
+    _datasets = {name.replace('-', '_'): name
+                 for name in Dataset.list_local_datasets()}
+
+    def list_datasets(self):
+        return Dataset.list_local_datasets()
+
+    def __getattr__(self, dataset_name):
+        if dataset_name in self._datasets:
+            return Dataset.init(self._datasets[dataset_name])
+        elif dataset_name in DataLoader._datasets:
+            raise ValueError("'{0}' dataset is not available locally. To "
+                             "download it, use ``vega_datasets.data.{0}()"
+                             "".format(dataset_name))
+        else:
+            raise AttributeError("No dataset named '{0}'".format(dataset_name))

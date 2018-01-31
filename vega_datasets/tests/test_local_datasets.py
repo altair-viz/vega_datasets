@@ -1,22 +1,29 @@
 import pandas as pd
 import pytest
 
-from vega_datasets import data
+from vega_datasets import data, local_data
 from vega_datasets.core import Dataset
 
 
 @pytest.mark.parametrize('name', Dataset.list_local_datasets())
 def test_load_local_dataset(name):
     loader = getattr(data, name.replace('-', '_'))
+    local_loader = getattr(local_data, name.replace('-', '_'))
 
     df1 = data(name)
     df2 = loader()  # equivalent to data.dataset_name()
+    df3 = local_data(name)
+    df4 = local_loader()  # equivalent to local_data.dataset_name()
     assert df1.equals(df2)
+    assert df1.equals(df3)
+    assert df1.equals(df4)
 
-    raw = loader.raw()
-    raw2 = data(name, return_raw=True)
-    assert raw == raw2
-    assert type(raw) is bytes
+    raw1 = loader.raw()
+    raw2 = local_loader.raw()
+    raw3 = data(name, return_raw=True)
+    raw4 = local_data(name, return_raw=True)
+    assert raw1 == raw2 == raw3 == raw4
+    assert type(raw1) is type(raw2) is type(raw3) is type(raw4) is bytes
 
 
 def test_iris_column_names():

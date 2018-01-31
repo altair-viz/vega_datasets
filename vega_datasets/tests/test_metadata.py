@@ -1,11 +1,12 @@
 import pytest
 
 from vega_datasets import data
+from vega_datasets.core import Dataset
 
 
 def test_metadata():
-    all_datasets = data.list_datasets()
-    local_datasets = data.list_local_datasets()
+    all_datasets = Dataset.list_datasets()
+    local_datasets = Dataset.list_local_datasets()
     for name in all_datasets:
         dataobj = getattr(data, name.replace('-', '_'))
 

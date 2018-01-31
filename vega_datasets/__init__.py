@@ -1,3 +1,4 @@
-from vega_datasets.core import DataLoader
+from vega_datasets.core import DataLoader, LocalDataLoader
 data = DataLoader()
+local_data = LocalDataLoader()
 __version__ = '0.4.0.dev0'

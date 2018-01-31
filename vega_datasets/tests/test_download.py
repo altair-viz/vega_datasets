@@ -36,3 +36,27 @@ def test_stock_pivoted():
 def test_download_stock_parsing():
     stocks = data.stocks(use_local=False)
     assert all(stocks.dtypes == ['object', 'datetime64[ns]', 'float64'])
+
+
+@skip_if_no_internet
+def test_driving_index():
+    driving = data.driving()
+    assert driving.index.name == 'year'
+
+
+@skip_if_no_internet
+def test_miserables_parsing():
+    miserables = data.miserables()
+    assert type(miserables) is tuple
+    assert all(type(df) is pd.DataFrame for df in miserables)
+
+
+@skip_if_no_internet
+def test_us_10m_parsing():
+    us_10m = data.us_10m()
+    assert type(us_10m) is dict
+
+@skip_if_no_internet
+def test_world_110m_parsing():
+    world_110m = data.world_110m()
+    assert type(world_110m) is dict

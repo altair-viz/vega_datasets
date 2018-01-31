@@ -63,10 +63,11 @@ To list all the available datsets, use ``list_datsets``:
 ['airports', 'anscombe', 'barley', 'birdstrikes', 'budget', 'budgets', 'burtin', 'cars', 'climate', 'countries', 'crimea', 'driving', 'flare', 'flights-10k', 'flights-20k', 'flights-2k', 'flights-3m', 'flights-5k', 'flights-airport', 'gapminder', 'gapminder-health-income', 'github', 'iris', 'jobs', 'miserables', 'monarchs', 'movies', 'points', 'population', 'seattle-temps', 'seattle-weather', 'sf-temps', 'sp500', 'stocks', 'unemployment-across-industries', 'us-10m', 'weather', 'weball26', 'wheat', 'world-110m']
 ```
 
-To list local datasets (i.e. those that are bundled with the package and can be used without a web connection), use ``list_local_datasets``:
+To list local datasets (i.e. those that are bundled with the package and can be used without a web connection), use the ``local_data`` object instead:
 
 ```python
->>> data.list_local_datasets()
+>>> from vega_datasets import local_data
+>>> local_data.list_datasets()
 ['airports', 'anscombe', 'barley', 'burtin', 'cars', 'crimea', 'iris', 'seattle-temps', 'seattle-weather', 'sf-temps', 'stocks']
 ```
 
