@@ -38,11 +38,6 @@ def test_download_stock_parsing():
     assert all(stocks.dtypes == ['object', 'datetime64[ns]', 'float64'])
 
 
-def test_driving_index():
-    driving = data.driving()
-    assert driving.index.name == 'year'
-
-
 @skip_if_no_internet
 def test_miserables_parsing():
     miserables = data.miserables()

@@ -292,14 +292,6 @@ class Climate(Dataset):
     _pd_read_kwds = {'convert_dates': ['DATE']}
 
 
-class Driving(Dataset):
-    name = 'driving'
-    def __call__(self, use_local=True, **kwargs):
-        __doc__ = super(Driving, self).__call__.__doc__
-        data = super(Driving, self).__call__(use_local=use_local, **kwargs)
-        return data.set_index('year')
-
-
 class Github(Dataset):
     name = 'github'
     _pd_read_kwds = {'parse_dates': ['time']}
