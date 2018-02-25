@@ -131,6 +131,10 @@
     "filename": "sp500.csv",
     "format": "csv"
   },
+  "us-state-capitals": {
+    "filename": "us-state-capitals.json",
+    "format": "json"
+  },
   "stocks": {
     "filename": "stocks.csv",
     "format": "csv"
