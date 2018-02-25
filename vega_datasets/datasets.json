@@ -1,4 +1,8 @@
 {
+  "7zip": {
+    "filename": "7zip.png",
+    "format": "png"
+  },
   "airports": {
     "filename": "airports.csv",
     "format": "csv"
@@ -35,6 +39,10 @@
     "filename": "climate.json",
     "format": "json"
   },
+  "co2-concentration": {
+    "filename": "co2-concentration.csv",
+    "format": "csv"
+  },
   "countries": {
     "filename": "countries.json",
     "format": "json"
@@ -43,8 +51,24 @@
     "filename": "crimea.json",
     "format": "json"
   },
+  "disasters": {
+    "filename": "disasters.csv",
+    "format": "csv"
+  },
   "driving": {
     "filename": "driving.json",
+    "format": "json"
+  },
+  "earthquakes": {
+    "filename": "earthquakes.json",
+    "format": "json"
+  },
+  "ffox": {
+    "filename": "ffox.png",
+    "format": "png"
+  },
+  "flare-dependencies": {
+    "filename": "flare-dependencies.json",
     "format": "json"
   },
   "flare": {
@@ -53,6 +77,10 @@
   },
   "flights-10k": {
     "filename": "flights-10k.json",
+    "format": "json"
+  },
+  "flights-200k": {
+    "filename": "flights-200k.json",
     "format": "json"
   },
   "flights-20k": {
@@ -75,17 +103,29 @@
     "filename": "flights-airport.csv",
     "format": "csv"
   },
-  "gapminder": {
-    "filename": "gapminder.json",
-    "format": "json"
-  },
   "gapminder-health-income": {
     "filename": "gapminder-health-income.csv",
     "format": "csv"
   },
+  "gapminder": {
+    "filename": "gapminder.json",
+    "format": "json"
+  },
+  "gimp": {
+    "filename": "gimp.png",
+    "format": "png"
+  },
   "github": {
     "filename": "github.csv",
     "format": "csv"
+  },
+  "graticule": {
+    "filename": "graticule.json",
+    "format": "json"
+  },
+  "income": {
+    "filename": "income.json",
+    "format": "json"
   },
   "iris": {
     "filename": "iris.json",
@@ -94,6 +134,26 @@
   "jobs": {
     "filename": "jobs.json",
     "format": "json"
+  },
+  "londonBoroughs": {
+    "filename": "londonBoroughs.json",
+    "format": "json"
+  },
+  "londonCentroids": {
+    "filename": "londonCentroids.json",
+    "format": "json"
+  },
+  "londonTubeLines": {
+    "filename": "londonTubeLines.json",
+    "format": "json"
+  },
+  "lookup_groups": {
+    "filename": "lookup_groups.csv",
+    "format": "csv"
+  },
+  "lookup_people": {
+    "filename": "lookup_people.csv",
+    "format": "csv"
   },
   "miserables": {
     "filename": "miserables.json",
@@ -107,6 +167,14 @@
     "filename": "movies.json",
     "format": "json"
   },
+  "normal-2d": {
+    "filename": "normal-2d.json",
+    "format": "json"
+  },
+  "obesity": {
+    "filename": "obesity.json",
+    "format": "json"
+  },
   "points": {
     "filename": "points.json",
     "format": "json"
@@ -114,6 +182,10 @@
   "population": {
     "filename": "population.json",
     "format": "json"
+  },
+  "population_engineers_hurricanes": {
+    "filename": "population_engineers_hurricanes.csv",
+    "format": "csv"
   },
   "seattle-temps": {
     "filename": "seattle-temps.csv",
@@ -135,12 +207,24 @@
     "filename": "stocks.csv",
     "format": "csv"
   },
+  "udistrict": {
+    "filename": "udistrict.json",
+    "format": "json"
+  },
   "unemployment-across-industries": {
     "filename": "unemployment-across-industries.json",
     "format": "json"
   },
+  "unemployment": {
+    "filename": "unemployment.tsv",
+    "format": "tsv"
+  },
   "us-10m": {
     "filename": "us-10m.json",
+    "format": "json"
+  },
+  "us-state-capitals": {
+    "filename": "us-state-capitals.json",
     "format": "json"
   },
   "weather": {
@@ -158,5 +242,9 @@
   "world-110m": {
     "filename": "world-110m.json",
     "format": "json"
+  },
+  "zipcodes": {
+    "filename": "zipcodes.csv",
+    "format": "csv"
   }
 }
