@@ -1,11 +1,12 @@
 Change Log
 ==========
 
-Release v0.4 (Unreleased)
--------------------------
+Release v0.4 (February 25, 2018)
+--------------------------------
 - Added ``vega_datasets.local_data`` object to more easily use local-only data
 - Removed ``data.list_local_datasets()`` in favor of ``local_data.list_datsets()``
 - Changed handling of "miserables", "us-10m", and "world-110m" datasets to return valid non-dataframe results rather than raising a ValueError.
+- Re-synced with the vega-datasets repository to add access to a few dozen more datasets
 
 Release v0.3 (January 24, 2018)
 -------------------------------
