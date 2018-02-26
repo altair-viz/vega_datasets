@@ -60,7 +60,7 @@ To list all the available datsets, use ``list_datsets``:
 
 ```python
 >>> data.list_datasets()
-['airports', 'anscombe', 'barley', 'birdstrikes', 'budget', 'budgets', 'burtin', 'cars', 'climate', 'countries', 'crimea', 'driving', 'flare', 'flights-10k', 'flights-20k', 'flights-2k', 'flights-3m', 'flights-5k', 'flights-airport', 'gapminder', 'gapminder-health-income', 'github', 'iris', 'jobs', 'miserables', 'monarchs', 'movies', 'points', 'population', 'seattle-temps', 'seattle-weather', 'sf-temps', 'sp500', 'stocks', 'unemployment-across-industries', 'us-10m', 'weather', 'weball26', 'wheat', 'world-110m']
+['7zip', 'airports', 'anscombe', 'barley', 'birdstrikes', 'budget', 'budgets', 'burtin', 'cars', 'climate', 'co2-concentration', 'countries', 'crimea', 'disasters', 'driving', 'earthquakes', 'ffox', 'flare', 'flare-dependencies', 'flights-10k', 'flights-200k', 'flights-20k', 'flights-2k', 'flights-3m', 'flights-5k', 'flights-airport', 'gapminder', 'gapminder-health-income', 'gimp', 'github', 'graticule', 'income', 'iris', 'jobs', 'londonBoroughs', 'londonCentroids', 'londonTubeLines', 'lookup_groups', 'lookup_people', 'miserables', 'monarchs', 'movies', 'normal-2d', 'obesity', 'points', 'population', 'population_engineers_hurricanes', 'seattle-temps', 'seattle-weather', 'sf-temps', 'sp500', 'stocks', 'udistrict', 'unemployment', 'unemployment-across-industries', 'us-10m', 'us-state-capitals', 'weather', 'weball26', 'wheat', 'world-110m', 'zipcodes']
 ```
 
 To list local datasets (i.e. those that are bundled with the package and can be used without a web connection), use the ``local_data`` object instead:
@@ -68,10 +68,11 @@ To list local datasets (i.e. those that are bundled with the package and can be 
 ```python
 >>> from vega_datasets import local_data
 >>> local_data.list_datasets()
-['airports', 'anscombe', 'barley', 'burtin', 'cars', 'crimea', 'iris', 'seattle-temps', 'seattle-weather', 'sf-temps', 'stocks']
+
+['airports', 'anscombe', 'barley', 'burtin', 'cars', 'crimea', 'driving', 'iris', 'seattle-temps', 'seattle-weather', 'sf-temps', 'stocks']
 ```
 
-We plan to add more local datasets in the future.
+We plan to add more local datasets in the future, subject to size and licensing constraints. See the [local datasets issue](https://github.com/jakevdp/vega_datasets/issues/1) if you would like to help with this.
 
 ## Dataset Information
 
