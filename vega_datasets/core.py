@@ -9,7 +9,7 @@ from vega_datasets._compat import urlopen, BytesIO, bytes_decode
 
 
 def _load_dataset_info():
-    """This loads dataset info from two package files:
+    """This loads dataset info from three package files:
 
     vega_datasets/datasets.json
     vega_datasets/dataset_info.json
