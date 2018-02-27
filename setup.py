@@ -34,15 +34,15 @@ This package has several goals:
 - return the results in the form of a Pandas dataframe.
 - wherever dataset size and/or license constraints make it possible, bundle the dataset with the package so that datasets can be loaded in the absence of a web connection.
 
-Development at http://github.com/jakevdp/vega_datasets
+Development at http://github.com/altair-viz/vega_datasets
 """
 NAME = "vega_datasets"
 AUTHOR = "Jake VanderPlas"
 AUTHOR_EMAIL = "jakevdp@gmail.com"
 MAINTAINER = "Jake VanderPlas"
 MAINTAINER_EMAIL = "jakevdp@gmail.com"
-URL = 'http://github.com/jakevdp/vega_datasets'
-DOWNLOAD_URL = 'http://github.com/jakevdp/vega_datasets'
+URL = 'http://github.com/altair-viz/vega_datasets'
+DOWNLOAD_URL = 'http://github.com/altair-viz/vega_datasets'
 LICENSE = 'MIT'
 
 VERSION = version('vega_datasets/__init__.py')
