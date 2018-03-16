@@ -1,6 +1,6 @@
 # vega_datasets
 
-[![build status](http://img.shields.io/travis/jakevdp/vega_datasets/master.svg?style=flat)](https://travis-ci.org/jakevdp/vega_datasets)
+[![build status](http://img.shields.io/travis/altair-viz/vega_datasets/master.svg?style=flat)](https://travis-ci.org/altair-viz/vega_datasets)
 
 A Python package for offline access to [vega datasets](https://github.com/vega/vega-datasets).
 
@@ -72,7 +72,7 @@ To list local datasets (i.e. those that are bundled with the package and can be 
 ['airports', 'anscombe', 'barley', 'burtin', 'cars', 'crimea', 'driving', 'iris', 'seattle-temps', 'seattle-weather', 'sf-temps', 'stocks']
 ```
 
-We plan to add more local datasets in the future, subject to size and licensing constraints. See the [local datasets issue](https://github.com/jakevdp/vega_datasets/issues/1) if you would like to help with this.
+We plan to add more local datasets in the future, subject to size and licensing constraints. See the [local datasets issue](https://github.com/altair-viz/vega_datasets/issues/1) if you would like to help with this.
 
 ## Dataset Information
 
