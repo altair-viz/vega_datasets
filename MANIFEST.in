@@ -1,3 +1,6 @@
 include *.md
+include *.py
+include setup.cfg
 include LICENSE
+include requirements.txt
 recursive-include vega_datasets *.py *.json *.csv *.tsv
