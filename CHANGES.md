@@ -4,6 +4,11 @@ Change Log
 Release v0.5 (Unreleased)
 -------------------------
 
+Release v0.4.1 (March 15, 2018)
+-------------------------------
+- Move package to altair-viz organization
+- Add MANIFEST.in to include all relevant files in build artifact
+
 Release v0.4 (February 25, 2018)
 --------------------------------
 - Added ``vega_datasets.local_data`` object to more easily use local-only data
