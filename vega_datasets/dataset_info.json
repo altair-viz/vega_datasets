@@ -43,6 +43,12 @@
       "R. A. Fisher (1936). 'The use of multiple measurements in taxonomic problems'. Annals of Eugenics. 7 (2): 179-188."
     ]
   },
+  "la-riots" : {
+    "description" : "More than 60 people lost their lives amid the looting and fires that ravaged Los Angeles for five days starting on April 29, 1992. This dataset contains metadata about each person, including the geographic coordinates of their death. It was compiled and published by the Los Angeles Times Data Desk [1]_.",
+    "references" : [
+      "http://spreadsheets.latimes.com/la-riots-deaths/"
+    ]
+  },
   "seattle-temps" : {
     "description" : "This dataset contains hourly temperatures in Seattle during the full year of 2010. The dataset is drawn from public-domain `NOAA data <https://www.weather.gov/disclaimer>`_, and transformed using scripts available at http://github.com/vega/vega_datasets/."
   },

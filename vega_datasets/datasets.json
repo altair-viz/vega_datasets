@@ -135,6 +135,10 @@
     "filename": "jobs.json",
     "format": "json"
   },
+  "la-riots": {
+    "filename": "la-riots.csv",
+    "format": "csv"
+  },
   "londonBoroughs": {
     "filename": "londonBoroughs.json",
     "format": "json"

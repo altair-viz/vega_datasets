@@ -7,6 +7,7 @@
   "crimea": "data/crimea.json",
   "driving": "data/driving.json",
   "iris": "data/iris.json",
+  "la-riots": "data/la-riots.csv",
   "seattle-temps": "data/seattle-temps.csv",
   "seattle-weather": "data/seattle-weather.csv",
   "sf-temps": "data/sf-temps.csv",
