@@ -57,6 +57,7 @@ def test_cars_column_names():
 
 
 @pytest.mark.parametrize('name,col', [('cars', 'Year',), ('stocks', 'date'),
+                                      ('la-riots', 'death_date'),
                                       ('seattle-weather', 'date'),
                                       ('seattle-temps', 'date'),
                                       ('sf-temps', 'date')])
