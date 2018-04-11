@@ -297,6 +297,11 @@ class Github(Dataset):
     _pd_read_kwds = {'parse_dates': ['time']}
 
 
+class LARiots(Dataset):
+    name = 'la-riots'
+    _pd_read_kwds = {'parse_dates': ['death_date']}
+
+
 class Miserables(Dataset):
     name = 'miserables'
     _return_type = tuple
