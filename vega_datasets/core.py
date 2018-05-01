@@ -106,7 +106,7 @@ class Dataset(object):
         self.filename = info['filename']
         self.url = self.base_url + info['filename']
         self.format = info['format']
-        self.pkg_filename = 'data/' + self.filename
+        self.pkg_filename = '_data/' + self.filename
         self.is_local = info['is_local']
         self.description = info.get('description', None)
         self.references = info.get('references', None)
@@ -227,7 +227,7 @@ class Dataset(object):
             raise ValueError("filepath is only valid for local datasets")
         else:
             return os.path.abspath(os.path.join(os.path.dirname(__file__),
-                                                'data', self.filename))
+                                                '_data', self.filename))
 
 
 class Stocks(Dataset):

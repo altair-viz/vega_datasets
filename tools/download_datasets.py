@@ -37,10 +37,10 @@ def _download_datasets():
     for name in DATASETS_TO_DOWNLOAD:
         data = Dataset(name)
         url = data.url
-        filename = filepath('data', data.filename)
+        filename = filepath('_data', data.filename)
         print("retrieving data {0} -> {1}".format(url, filename))
         urlretrieve(url, filename)
-        dataset_listing[name] = 'data/{0}'.format(data.filename)
+        dataset_listing[name] = '_data/{0}'.format(data.filename)
     with open(filepath('local_datasets.json'), 'w') as f:
         json.dump(dataset_listing, f, indent=2)
 
