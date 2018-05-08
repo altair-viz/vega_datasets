@@ -123,6 +123,10 @@
     "filename": "graticule.json",
     "format": "json"
   },
+  "iowa-electricity": {
+    "filename": "iowa-electricity.csv",
+    "format": "csv"
+  },
   "income": {
     "filename": "income.json",
     "format": "json"

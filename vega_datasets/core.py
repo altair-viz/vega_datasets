@@ -297,6 +297,11 @@ class Github(Dataset):
     _pd_read_kwds = {'parse_dates': ['time']}
 
 
+class IowaElectricity(Dataset):
+    name = 'iowa-electricity'
+    _pd_read_kwds = {'parse_dates': ['year']}
+
+
 class LARiots(Dataset):
     name = 'la-riots'
     _pd_read_kwds = {'parse_dates': ['death_date']}
