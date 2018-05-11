@@ -6,6 +6,7 @@
   "cars": "_data/cars.json",
   "crimea": "_data/crimea.json",
   "driving": "_data/driving.json",
+  "iowa-electricity": "_data/iowa-electricity.csv",
   "iris": "_data/iris.json",
   "la-riots": "_data/la-riots.csv",
   "seattle-temps": "_data/seattle-temps.csv",
