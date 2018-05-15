@@ -8,7 +8,6 @@ python:
 env:
   global:
     - TEST_DIR=/tmp/_vega_datasets/
-    - PIP_DEPS="pandas pytest"
 
 before_install:
   - pip install pip --upgrade
