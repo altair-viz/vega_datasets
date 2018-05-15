@@ -1,6 +1,9 @@
 Change Log
 ==========
 
+Release v0.6 (Unreleased)
+-------------------------
+
 Release v0.5 (May 15, 2018)
 ---------------------------
 - Add iowa-electricity local dataset
