@@ -1,30 +1,40 @@
-1. Update version in vega_datasets/__init__.py to, e.g. 0.2
+1. Update version in vega_datasets/__init__.py to, e.g. 0.5
 
 2. Make sure CHANGES.md is up to date for the release
 
 3. Commit change and push to master
 
        git add . -u
-       git commit -m "MAINT: bump version to 0.2"
+       git commit -m "MAINT: bump version to 0.5"
        git push origin master
 
 4. Tag the release:
 
-       git tag -a v0.2 -m "version 0.2 release"
-       git push origin v0.2
+       git tag -a v0.5 -m "version 0.5 release"
+       git push origin v0.5
 
-5. publish to PyPI (Requires correct PyPI owner permissions)
+5. Build the distributions
 
-       python setup.py sdist upload
+       rm -r dist build  # clean old builds & distributions
+       python setup.py sdist  # create a source distribution
+       python setup.py bdist_wheel  # create a universal wheel
 
-6. update version in vega_datasets/__init__.py to, e.g. 0.3.0dev0
+6. publish to PyPI (Requires correct PyPI owner permissions)
 
-7. add a new changelog entry for the unreleased version
+       twine upload dist/*
 
-8. Commit change and push to master
+7. update version in vega_datasets/__init__.py to, e.g. 0.6.0dev0
+
+8. add a new changelog entry for the unreleased version
+
+9. Commit change and push to master
 
        git add . -u
-       git commit -m "MAINT: bump version to 0.3.0dev"
+       git commit -m "MAINT: bump version to 0.6.0dev"
        git push origin master
+
+
+10. Update the conda-forge package with a pull request to
+    http://github.com/conda-forge/vega_datasets-feedstock
 
     
