@@ -342,6 +342,11 @@ class Sp500(Dataset):
     _pd_read_kwds = {'parse_dates': ['date']}
 
 
+class Unemployment(Dataset):
+    name = 'unemployment'
+    _pd_read_kwds = {'sep': '\t'}
+
+
 class UnemploymentAcrossIndustries(Dataset):
     name = 'unemployment-across-industries'
     _pd_read_kwds = {'convert_dates': ['date']}
@@ -371,6 +376,11 @@ class World_110M(Dataset):
     def __call__(self, use_local=True, **kwargs):
         __doc__ = super(World_110M, self).__call__.__doc__
         return json.loads(bytes_decode(self.raw(use_local=use_local)), **kwargs)
+
+
+class ZIPCodes(Dataset):
+    name = 'zipcodes'
+    _pd_read_kwds = {'dtype': {'zip_code': 'category'}}
 
 
 class DataLoader(object):
