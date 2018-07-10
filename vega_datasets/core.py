@@ -214,7 +214,7 @@ class Dataset(object):
         elif self.format == 'csv':
             return pd.read_csv(datasource, **kwds)
         elif self.format == 'tsv':
-            kwargs['sep'] = '\t'
+            kwds['sep'] = '\t'
             return pd.read_csv(datasource, **kwds)
         else:
             raise ValueError("Unrecognized file format: {0}. "

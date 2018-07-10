@@ -55,3 +55,9 @@ def test_us_10m_parsing():
 def test_world_110m_parsing():
     world_110m = data.world_110m()
     assert type(world_110m) is dict
+
+
+@skip_if_no_internet
+def test_unemployment_tsv():
+    unemployment = data.unemployment()
+    assert len(data.unemployment().columns) == 2
