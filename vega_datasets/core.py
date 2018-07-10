@@ -342,11 +342,6 @@ class Sp500(Dataset):
     _pd_read_kwds = {'parse_dates': ['date']}
 
 
-class Unemployment(Dataset):
-    name = 'unemployment'
-    _pd_read_kwds = {'sep': '\t'}
-
-
 class UnemploymentAcrossIndustries(Dataset):
     name = 'unemployment-across-industries'
     _pd_read_kwds = {'convert_dates': ['date']}
