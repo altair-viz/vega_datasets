@@ -375,7 +375,7 @@ class World_110M(Dataset):
 
 class ZIPCodes(Dataset):
     name = 'zipcodes'
-    _pd_read_kwds = {'dtype': {'zip_code': 'category'}}
+    _pd_read_kwds = {'dtype': {'zip_code': 'object'}}
 
 
 class DataLoader(object):
