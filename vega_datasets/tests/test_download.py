@@ -58,6 +58,12 @@ def test_world_110m_parsing():
 
 
 @skip_if_no_internet
+def test_unemployment_tsv():
+    unemployment = data.unemployment()
+    assert len(unemployment.columns) == 2
+
+
+@skip_if_no_internet
 def test_zipcodes_parsing():
     zipcodes = data.zipcodes()
     assert all(zipcodes.columns == ['zip_code', 'latitude', 'longitude',
