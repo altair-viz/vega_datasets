@@ -373,6 +373,11 @@ class World_110M(Dataset):
         return json.loads(bytes_decode(self.raw(use_local=use_local)), **kwargs)
 
 
+class ZIPCodes(Dataset):
+    name = 'zipcodes'
+    _pd_read_kwds = {'dtype': {'zip_code': 'object'}}
+
+
 class DataLoader(object):
     """Load a dataset from a local file or remote URL.
 
