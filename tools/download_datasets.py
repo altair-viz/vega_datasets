@@ -43,7 +43,7 @@ def _download_datasets():
         urlretrieve(url, filename)
         dataset_listing[name] = '_data/{0}'.format(data.filename)
     with open(filepath('local_datasets.json'), 'w') as f:
-        json.dump(dataset_listing, f, indent=2)
+        json.dump(dataset_listing, f, indent=2, sort_keys=True)
 
 
 if __name__ == '__main__':
