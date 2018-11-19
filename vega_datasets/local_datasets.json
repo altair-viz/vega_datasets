@@ -12,5 +12,6 @@
   "seattle-temps": "_data/seattle-temps.csv",
   "seattle-weather": "_data/seattle-weather.csv",
   "sf-temps": "_data/sf-temps.csv",
-  "stocks": "_data/stocks.csv"
+  "stocks": "_data/stocks.csv",
+  "us-employment": "_data/us-employment.csv"
 }
