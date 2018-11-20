@@ -1,8 +1,9 @@
 Change Log
 ==========
 
-Release v0.6 (Unreleased)
+Release v0.6 (November 20, 2018)
 -------------------------
+- Add us-unemployment local dataset
 
 Release v0.5 (May 15, 2018)
 ---------------------------
