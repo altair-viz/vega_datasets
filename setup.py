@@ -59,6 +59,7 @@ setup(name="vega_datasets",
           'Programming Language :: Python :: 2.7',
           'Programming Language :: Python :: 3.5',
           'Programming Language :: Python :: 3.6',
+          'Programming Language :: Python :: 3.7',
       ],
       project_urls={
           'Bug Reports': 'https://github.com/altair-viz/vega_datasets/issues',
