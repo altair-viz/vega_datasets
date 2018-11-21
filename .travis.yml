@@ -1,21 +1,27 @@
 language: python
 
-python:
-  - 2.7
-  - 3.5
-  - 3.6
+cache: pip
+  
+# Enable 3.7 without globally enabling sudo and xenial
+matrix:
+  include:
+    - python: 2.7
+    - python: 3.5
+    - python: 3.6
+    - python: 3.7
+      dist: xenial
+      sudo: true
 
 env:
   global:
     - TEST_DIR=/tmp/_vega_datasets/
 
 before_install:
-  - pip install pip --upgrade
-  - pip install pytest
+  - python -m pip install pip --upgrade;
 
 install:
-  - pip install .
+  - python -m pip install -e .;
 
 script:
   - mkdir -p $TEST_DIR
-  - cd $TEST_DIR && python -m pytest --pyargs vega_datasets --doctest-modules
+  - cd $TEST_DIR && python -m pytest --pyargs --doctest-modules vega_datasets;
