@@ -69,7 +69,7 @@ To list local datasets (i.e. those that are bundled with the package and can be 
 >>> from vega_datasets import local_data
 >>> local_data.list_datasets()
 
-['airports', 'anscombe', 'barley', 'burtin', 'cars', 'crimea', 'driving', 'iowa-electricity', 'iris', 'seattle-temps', 'seattle-weather', 'sf-temps', 'stocks', 'us-employment',]
+['airports', 'anscombe', 'barley', 'burtin', 'cars', 'crimea', 'driving', 'iowa-electricity', 'iris', 'seattle-temps', 'seattle-weather', 'sf-temps', 'stocks', 'us-employment', "wheat"]
 ```
 
 We plan to add more local datasets in the future, subject to size and licensing constraints. See the [local datasets issue](https://github.com/altair-viz/vega_datasets/issues/1) if you would like to help with this.
