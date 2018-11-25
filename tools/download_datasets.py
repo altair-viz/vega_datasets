@@ -28,7 +28,8 @@ DATASETS_TO_DOWNLOAD = ['airports',
                         'seattle-weather',
                         'sf-temps',
                         'stocks',
-                        'us-employment']
+                        'us-employment',
+                        'wheat']
 
 
 def _download_datasets():
