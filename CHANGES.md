@@ -1,6 +1,9 @@
 Change Log
 ==========
 
+Release v0.8 (Unreleased)
+-------------------------
+
 Release v0.7 (Dec 7, 2018)
 -------------------------
 - Add wheat to local datasets
