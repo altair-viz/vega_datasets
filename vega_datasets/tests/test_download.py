@@ -14,8 +14,8 @@ skip_if_no_internet = pytest.mark.skipif(not connection_ok(),
 def test_download_iris():
     iris = data.iris(use_local=False)
     assert type(iris) is pd.DataFrame
-    assert tuple(iris.columns) == ('petalLength', 'petalWidth', 'sepalLength',
-                                   'sepalWidth', 'species')
+    assert sorted(iris.columns) == ['petalLength', 'petalWidth', 'sepalLength',
+                                    'sepalWidth', 'species']
 
     iris = data.iris.raw(use_local=False)
     assert type(iris) is bytes
@@ -29,7 +29,7 @@ def test_stock_date_parsing():
 def test_stock_pivoted():
     stocks = data.stocks(pivoted=True)
     assert stocks.index.name == 'date'
-    assert all(stocks.columns == ['AAPL', 'AMZN', 'GOOG', 'IBM', 'MSFT'])
+    assert sorted(stocks.columns) == ['AAPL', 'AMZN', 'GOOG', 'IBM', 'MSFT']
 
 
 @skip_if_no_internet
