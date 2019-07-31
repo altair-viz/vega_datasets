@@ -29,8 +29,8 @@ def test_load_local_dataset(name):
 def test_iris_column_names():
     iris = data.iris()
     assert type(iris) is pd.DataFrame
-    assert tuple(iris.columns) == ('petalLength', 'petalWidth', 'sepalLength',
-                                   'sepalWidth', 'species')
+    assert sorted(iris.columns) == ['petalLength', 'petalWidth', 'sepalLength',
+                                    'sepalWidth', 'species']
 
     iris = data.iris.raw()
     assert type(iris) is bytes
@@ -39,7 +39,7 @@ def test_iris_column_names():
 def test_stocks_column_names():
     stocks = data.stocks()
     assert type(stocks) is pd.DataFrame
-    assert tuple(stocks.columns) == ('symbol', 'date', 'price')
+    assert sorted(stocks.columns) == ['date', 'price', 'symbol']
 
     stocks = data.stocks.raw()
     assert type(stocks) is bytes
@@ -48,9 +48,9 @@ def test_stocks_column_names():
 def test_cars_column_names():
     cars = data.cars()
     assert type(cars) is pd.DataFrame
-    assert tuple(cars.columns) == ('Acceleration', 'Cylinders', 'Displacement',
+    assert sorted(cars.columns) == ['Acceleration', 'Cylinders', 'Displacement',
                                    'Horsepower', 'Miles_per_Gallon', 'Name',
-                                   'Origin', 'Weight_in_lbs', 'Year')
+                                   'Origin', 'Weight_in_lbs', 'Year']
 
     cars = data.cars.raw()
     assert type(cars) is bytes
