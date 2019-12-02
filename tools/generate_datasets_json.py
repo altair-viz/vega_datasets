@@ -24,7 +24,7 @@ def main(vega_datasets_package):
         datasets[name] = {'filename': filename, 'format': fmt[1:]}
 
     with open(datasets_file, 'w') as f:
-        json.dump(datasets, f, indent=2)
+        json.dump(datasets, f, indent=2, sort_keys=True)
 
 
 if __name__ == '__main__':
