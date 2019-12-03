@@ -104,4 +104,7 @@ ENV/
 *~
 
 # anonymous notebooks
-Untitled*.ipynb
+Untitled*.ipynb]
+
+# Local git clone
+tools/vega-datasets
