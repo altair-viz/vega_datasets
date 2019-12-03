@@ -17,16 +17,17 @@ def _load_dataset_info():
 
     It returns a dictionary with dataset information.
     """
+
     def load_json(path):
-        raw = pkgutil.get_data('vega_datasets', path)
+        raw = pkgutil.get_data("vega_datasets", path)
         return json.loads(bytes_decode(raw))
 
-    info = load_json('datasets.json')
-    descriptions = load_json('dataset_info.json')
-    local_datasets = load_json('local_datasets.json')
+    info = load_json("datasets.json")
+    descriptions = load_json("dataset_info.json")
+    local_datasets = load_json("local_datasets.json")
 
     for name in info:
-        info[name]['is_local'] = (name in local_datasets)
+        info[name]["is_local"] = name in local_datasets
     for name in descriptions:
         info[name].update(descriptions[name])
 
@@ -87,7 +88,7 @@ class Dataset(object):
     _reference_info = """
     For information on this dataset, see https://github.com/vega/vega-datasets/
     """
-    base_url = 'https://vega.github.io/vega-datasets/data/'
+    base_url = "https://vega.github.io/vega-datasets/data/"
     _dataset_info = _load_dataset_info()
     _pd_read_kwds = {}
     _return_type = pd.DataFrame
@@ -95,60 +96,73 @@ class Dataset(object):
     @classmethod
     def init(cls, name):
         """Return an instance of this class or an appropriate subclass"""
-        clsdict = {subcls.name: subcls for subcls in cls.__subclasses__()
-                   if hasattr(subcls, 'name')}
+        clsdict = {
+            subcls.name: subcls
+            for subcls in cls.__subclasses__()
+            if hasattr(subcls, "name")
+        }
         return clsdict.get(name, cls)(name)
 
     def __init__(self, name):
         info = self._infodict(name)
         self.name = name
-        self.methodname = name.replace('-', '_')
-        self.filename = info['filename']
-        self.url = self.base_url + info['filename']
-        self.format = info['format']
-        self.pkg_filename = '_data/' + self.filename
-        self.is_local = info['is_local']
-        self.description = info.get('description', None)
-        self.references = info.get('references', None)
+        self.methodname = name.replace("-", "_")
+        self.filename = info["filename"]
+        self.url = self.base_url + info["filename"]
+        self.format = info["format"]
+        self.pkg_filename = "_data/" + self.filename
+        self.is_local = info["is_local"]
+        self.description = info.get("description", None)
+        self.references = info.get("references", None)
         self.__doc__ = self._make_docstring()
 
     def _make_docstring(self):
         info = self._infodict(self.name)
 
         # construct, indent, and line-wrap dataset description
-        description = info.get('description', '')
+        description = info.get("description", "")
         if not description:
-            description = ('This dataset is described at '
-                           'https://github.com/vega/vega-datasets/')
-        wrapper = textwrap.TextWrapper(width=70, initial_indent='',
-                                       subsequent_indent=4 * ' ')
-        description = '\n'.join(wrapper.wrap(description))
+            description = (
+                "This dataset is described at " "https://github.com/vega/vega-datasets/"
+            )
+        wrapper = textwrap.TextWrapper(
+            width=70, initial_indent="", subsequent_indent=4 * " "
+        )
+        description = "\n".join(wrapper.wrap(description))
 
         # construct, indent, and join references
-        references = info.get('references', [])
-        references = ('.. [{0}] '.format(i + 1) + ref
-                      for i, ref in enumerate(references))
-        wrapper = textwrap.TextWrapper(width=70, initial_indent=4 * ' ',
-                                       subsequent_indent=7 * ' ')
-        references = ('\n'.join(wrapper.wrap(ref)) for ref in references)
-        references = '\n\n'.join(references)
+        references = info.get("references", [])
+        references = (
+            ".. [{0}] ".format(i + 1) + ref for i, ref in enumerate(references)
+        )
+        wrapper = textwrap.TextWrapper(
+            width=70, initial_indent=4 * " ", subsequent_indent=7 * " "
+        )
+        references = ("\n".join(wrapper.wrap(ref)) for ref in references)
+        references = "\n\n".join(references)
         if references.strip():
             references = "References\n    ----------\n" + references
 
         # add information about bundling of data
         if self.is_local:
-            bundle_info = ("This dataset is bundled with vega_datasets; "
-                           "it can be loaded without web access.")
+            bundle_info = (
+                "This dataset is bundled with vega_datasets; "
+                "it can be loaded without web access."
+            )
         else:
-            bundle_info = ("This dataset is not bundled with vega_datasets; "
-                           "it requires web access to load.")
+            bundle_info = (
+                "This dataset is not bundled with vega_datasets; "
+                "it requires web access to load."
+            )
 
-        return self._instance_doc.format(additional_docs=self._additional_docs,
-                                         data_description=description,
-                                         reference_info=references,
-                                         bundle_info=bundle_info,
-                                         return_type=self._return_type,
-                                         **self.__dict__)
+        return self._instance_doc.format(
+            additional_docs=self._additional_docs,
+            data_description=description,
+            reference_info=references,
+            bundle_info=bundle_info,
+            return_type=self._return_type,
+            **self.__dict__
+        )
 
     @classmethod
     def list_datasets(cls):
@@ -157,17 +171,20 @@ class Dataset(object):
 
     @classmethod
     def list_local_datasets(cls):
-        return sorted(name for name, info in cls._dataset_info.items()
-                      if info['is_local'])
+        return sorted(
+            name for name, info in cls._dataset_info.items() if info["is_local"]
+        )
 
     @classmethod
     def _infodict(cls, name):
         """load the info dictionary for the given name"""
         info = cls._dataset_info.get(name, None)
         if info is None:
-            raise ValueError('No such dataset {0} exists, '
-                             'use list_datasets() to get a list '
-                             'of available datasets.'.format(name))
+            raise ValueError(
+                "No such dataset {0} exists, "
+                "use list_datasets() to get a list "
+                "of available datasets.".format(name)
+            )
         return info
 
     def raw(self, use_local=True):
@@ -181,7 +198,7 @@ class Dataset(object):
             data from an external URL.
         """
         if use_local and self.is_local:
-            return pkgutil.get_data('vega_datasets', self.pkg_filename)
+            return pkgutil.get_data("vega_datasets", self.pkg_filename)
         else:
             return urlopen(self.url).read()
 
@@ -209,29 +226,32 @@ class Dataset(object):
         kwds = self._pd_read_kwds.copy()
         kwds.update(kwargs)
 
-        if self.format == 'json':
+        if self.format == "json":
             return pd.read_json(datasource, **kwds)
-        elif self.format == 'csv':
+        elif self.format == "csv":
             return pd.read_csv(datasource, **kwds)
-        elif self.format == 'tsv':
-            kwds.setdefault('sep', '\t')
+        elif self.format == "tsv":
+            kwds.setdefault("sep", "\t")
             return pd.read_csv(datasource, **kwds)
         else:
-            raise ValueError("Unrecognized file format: {0}. "
-                             "Valid options are ['json', 'csv', 'tsv']."
-                             "".format(self.format))
+            raise ValueError(
+                "Unrecognized file format: {0}. "
+                "Valid options are ['json', 'csv', 'tsv']."
+                "".format(self.format)
+            )
 
     @property
     def filepath(self):
         if not self.is_local:
             raise ValueError("filepath is only valid for local datasets")
         else:
-            return os.path.abspath(os.path.join(os.path.dirname(__file__),
-                                                '_data', self.filename))
+            return os.path.abspath(
+                os.path.join(os.path.dirname(__file__), "_data", self.filename)
+            )
 
 
 class Stocks(Dataset):
-    name = 'stocks'
+    name = "stocks"
     _additional_docs = """
     For convenience, the stocks dataset supports pivoted output using the
     optional `pivoted` keyword. If pivoted is set to True, each company's
@@ -252,7 +272,7 @@ class Stocks(Dataset):
         2000-02-01  28.66  68.87   NaN   92.11  36.35
         2000-03-01  33.95  67.00   NaN  106.11  43.22
     """
-    _pd_read_kwds = {'parse_dates': ['date']}
+    _pd_read_kwds = {"parse_dates": ["date"]}
 
     def __call__(self, pivoted=False, use_local=True, **kwargs):
         """Load and parse the dataset from remote URL or local file
@@ -278,104 +298,107 @@ class Stocks(Dataset):
         __doc__ = super(Stocks, self).__call__.__doc__
         data = super(Stocks, self).__call__(use_local=use_local, **kwargs)
         if pivoted:
-            data = data.pivot(index='date', columns='symbol', values='price')
+            data = data.pivot(index="date", columns="symbol", values="price")
         return data
 
 
 class Cars(Dataset):
-    name = 'cars'
-    _pd_read_kwds = {'convert_dates': ['Year']}
+    name = "cars"
+    _pd_read_kwds = {"convert_dates": ["Year"]}
 
 
 class Climate(Dataset):
-    name = 'climate'
-    _pd_read_kwds = {'convert_dates': ['DATE']}
+    name = "climate"
+    _pd_read_kwds = {"convert_dates": ["DATE"]}
 
 
 class Github(Dataset):
-    name = 'github'
-    _pd_read_kwds = {'parse_dates': ['time']}
+    name = "github"
+    _pd_read_kwds = {"parse_dates": ["time"]}
 
 
 class IowaElectricity(Dataset):
-    name = 'iowa-electricity'
-    _pd_read_kwds = {'parse_dates': ['year']}
+    name = "iowa-electricity"
+    _pd_read_kwds = {"parse_dates": ["year"]}
 
 
 class LARiots(Dataset):
-    name = 'la-riots'
-    _pd_read_kwds = {'parse_dates': ['death_date']}
+    name = "la-riots"
+    _pd_read_kwds = {"parse_dates": ["death_date"]}
 
 
 class Miserables(Dataset):
-    name = 'miserables'
+    name = "miserables"
     _return_type = tuple
     _additional_docs = """
     The miserables data contains two dataframes, ``nodes`` and ``links``,
     both of which are returned from this function.
     """
+
     def __call__(self, use_local=True, **kwargs):
         __doc__ = super(Miserables, self).__call__.__doc__
         dct = json.loads(bytes_decode(self.raw(use_local=use_local)), **kwargs)
-        nodes = pd.DataFrame.from_records(dct['nodes'], index='index')
-        links = pd.DataFrame.from_records(dct['links'])
+        nodes = pd.DataFrame.from_records(dct["nodes"], index="index")
+        links = pd.DataFrame.from_records(dct["links"])
         return nodes, links
 
 
 class SeattleTemps(Dataset):
-    name = 'seattle-temps'
-    _pd_read_kwds = {'parse_dates': ['date']}
+    name = "seattle-temps"
+    _pd_read_kwds = {"parse_dates": ["date"]}
 
 
 class SeattleWeather(Dataset):
-    name = 'seattle-weather'
-    _pd_read_kwds = {'parse_dates': ['date']}
+    name = "seattle-weather"
+    _pd_read_kwds = {"parse_dates": ["date"]}
 
 
 class SFTemps(Dataset):
-    name = 'sf-temps'
-    _pd_read_kwds = {'parse_dates': ['date']}
+    name = "sf-temps"
+    _pd_read_kwds = {"parse_dates": ["date"]}
 
 
 class Sp500(Dataset):
-    name = 'sp500'
-    _pd_read_kwds = {'parse_dates': ['date']}
+    name = "sp500"
+    _pd_read_kwds = {"parse_dates": ["date"]}
 
 
 class UnemploymentAcrossIndustries(Dataset):
-    name = 'unemployment-across-industries'
-    _pd_read_kwds = {'convert_dates': ['date']}
+    name = "unemployment-across-industries"
+    _pd_read_kwds = {"convert_dates": ["date"]}
 
 
 class US_10M(Dataset):
-    name = 'us-10m'
+    name = "us-10m"
     _return_type = dict
     _additional_docs = """
     The us-10m dataset is a TopoJSON file, with a structure that is not
     suitable for storage in a dataframe. For this reason, the loader returns
     a simple Python dictionary.
     """
+
     def __call__(self, use_local=True, **kwargs):
         __doc__ = super(US_10M, self).__call__.__doc__
         return json.loads(bytes_decode(self.raw(use_local=use_local)), **kwargs)
 
 
 class World_110M(Dataset):
-    name = 'world-110m'
+    name = "world-110m"
     _return_type = dict
     _additional_docs = """
     The world-100m dataset is a TopoJSON file, with a structure that is not
     suitable for storage in a dataframe. For this reason, the loader returns
     a simple Python dictionary.
     """
+
     def __call__(self, use_local=True, **kwargs):
         __doc__ = super(World_110M, self).__call__.__doc__
         return json.loads(bytes_decode(self.raw(use_local=use_local)), **kwargs)
 
 
 class ZIPCodes(Dataset):
-    name = 'zipcodes'
-    _pd_read_kwds = {'dtype': {'zip_code': 'object'}}
+    name = "zipcodes"
+    _pd_read_kwds = {"dtype": {"zip_code": "object"}}
 
 
 class DataLoader(object):
@@ -406,14 +429,14 @@ class DataLoader(object):
         additional keyword arguments are passed to the pandas parsing function,
         either ``read_csv()`` or ``read_json()`` depending on the data format.
     """
-    _datasets = {name.replace('-', '_'): name
-                 for name in Dataset.list_datasets()}
+
+    _datasets = {name.replace("-", "_"): name for name in Dataset.list_datasets()}
 
     def list_datasets(self):
         return Dataset.list_datasets()
 
     def __call__(self, name, return_raw=False, use_local=True, **kwargs):
-        loader = getattr(self, name.replace('-', '_'))
+        loader = getattr(self, name.replace("-", "_"))
         if return_raw:
             return loader.raw(use_local=use_local, **kwargs)
         else:
@@ -430,8 +453,7 @@ class DataLoader(object):
 
 
 class LocalDataLoader(DataLoader):
-    _datasets = {name.replace('-', '_'): name
-                 for name in Dataset.list_local_datasets()}
+    _datasets = {name.replace("-", "_"): name for name in Dataset.list_local_datasets()}
 
     def list_datasets(self):
         return Dataset.list_local_datasets()
@@ -440,8 +462,10 @@ class LocalDataLoader(DataLoader):
         if dataset_name in self._datasets:
             return Dataset.init(self._datasets[dataset_name])
         elif dataset_name in DataLoader._datasets:
-            raise ValueError("'{0}' dataset is not available locally. To "
-                             "download it, use ``vega_datasets.data.{0}()"
-                             "".format(dataset_name))
+            raise ValueError(
+                "'{0}' dataset is not available locally. To "
+                "download it, use ``vega_datasets.data.{0}()"
+                "".format(dataset_name)
+            )
         else:
             raise AttributeError("No dataset named '{0}'".format(dataset_name))

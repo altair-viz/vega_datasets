@@ -8,7 +8,7 @@ def test_metadata():
     all_datasets = Dataset.list_datasets()
     local_datasets = Dataset.list_local_datasets()
     for name in all_datasets:
-        dataobj = getattr(data, name.replace('-', '_'))
+        dataobj = getattr(data, name.replace("-", "_"))
 
         if name in local_datasets:
             # Local datasets should all have a description defined
@@ -16,7 +16,7 @@ def test_metadata():
             assert len(dataobj.filepath) > 0
         else:
             with pytest.raises(ValueError) as err:
-                path = dataobj.filepath
+                dataobj.filepath
             assert str(err.value) == "filepath is only valid for local datasets"
 
         # Descriptions should either be defined, or be None

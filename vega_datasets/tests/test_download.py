@@ -6,16 +6,22 @@ from vega_datasets import data
 from vega_datasets.utils import connection_ok
 
 
-skip_if_no_internet = pytest.mark.skipif(not connection_ok(),
-                                         reason="No internet connection")
+skip_if_no_internet = pytest.mark.skipif(
+    not connection_ok(), reason="No internet connection"
+)
 
 
 @skip_if_no_internet
 def test_download_iris():
     iris = data.iris(use_local=False)
     assert type(iris) is pd.DataFrame
-    assert sorted(iris.columns) == ['petalLength', 'petalWidth', 'sepalLength',
-                                    'sepalWidth', 'species']
+    assert sorted(iris.columns) == [
+        "petalLength",
+        "petalWidth",
+        "sepalLength",
+        "sepalWidth",
+        "species",
+    ]
 
     iris = data.iris.raw(use_local=False)
     assert type(iris) is bytes
@@ -23,19 +29,19 @@ def test_download_iris():
 
 def test_stock_date_parsing():
     stocks = data.stocks()
-    assert all(stocks.dtypes == ['object', 'datetime64[ns]', 'float64'])
+    assert all(stocks.dtypes == ["object", "datetime64[ns]", "float64"])
 
 
 def test_stock_pivoted():
     stocks = data.stocks(pivoted=True)
-    assert stocks.index.name == 'date'
-    assert sorted(stocks.columns) == ['AAPL', 'AMZN', 'GOOG', 'IBM', 'MSFT']
+    assert stocks.index.name == "date"
+    assert sorted(stocks.columns) == ["AAPL", "AMZN", "GOOG", "IBM", "MSFT"]
 
 
 @skip_if_no_internet
 def test_download_stock_parsing():
     stocks = data.stocks(use_local=False)
-    assert all(stocks.dtypes == ['object', 'datetime64[ns]', 'float64'])
+    assert all(stocks.dtypes == ["object", "datetime64[ns]", "float64"])
 
 
 @skip_if_no_internet
@@ -66,7 +72,11 @@ def test_unemployment_tsv():
 @skip_if_no_internet
 def test_zipcodes_parsing():
     zipcodes = data.zipcodes()
-    assert all(zipcodes.columns == ['zip_code', 'latitude', 'longitude',
-                                    'city', 'state', 'county'])
-    assert all(zipcodes.dtypes == ['object', 'float64', 'float64',
-                                   'object', 'object', 'object'])
+    assert all(
+        zipcodes.columns
+        == ["zip_code", "latitude", "longitude", "city", "state", "county"]
+    )
+    assert all(
+        zipcodes.dtypes
+        == ["object", "float64", "float64", "object", "object", "object"]
+    )
