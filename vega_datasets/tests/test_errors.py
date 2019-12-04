@@ -15,7 +15,7 @@ def test_undefined_dataset():
 
 def test_undefined_infodict():
     with pytest.raises(ValueError) as err:
-        info = Dataset._infodict("blahblahblah")
+        Dataset._infodict("blahblahblah")
     assert str(err.value).startswith("No such dataset blahblahblah exists")
 
 
@@ -24,7 +24,7 @@ def test_undefined_infodict():
 )
 def test_local_dataset_error(name):
     with pytest.raises(ValueError) as err:
-        data = local_data(name)
+        local_data(name)
     assert str(err.value).startswith(
         "'{0}' dataset is not available locally" "".format(name.replace("-", "_"))
     )

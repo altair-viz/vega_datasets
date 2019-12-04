@@ -1,4 +1,4 @@
-# Python 2/3 compatibility
+# flake8: noqa
 
 try:
     from urllib.error import URLError, HTTPError
@@ -9,7 +9,7 @@ try:
         return bytes_.decode(encoding)
 
 
-except ImportError:
+except ImportError:  # noqa: F401
     # Python 2.X
     from urllib2 import URLError, HTTPError, urlopen
     from urllib import urlretrieve

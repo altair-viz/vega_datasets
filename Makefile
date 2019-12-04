@@ -4,10 +4,19 @@ install:
 	python setup.py install
 
 test:
-	python -m pytest --pyargs vega_datasets --doctest-modules
+	black .
+	python -m flake8 vega_datasets
+	rm -r build
+	python setup.py build &&\
+	  cd build/lib &&\
+	  python -m pytest --pyargs --doctest-modules vega_datasets
 
 test-coverage:
-	python -m pytest --pyargs vega_datasets --doctest-modules --cov=vega_datasets --cov-report term
+	python setup.py build &&\
+	  cd build/lib &&\
+	  python -m pytest --pyargs --doctest-modules --cov=altair_transform --cov-report term vega_datasets
 
 test-coverage-html:
-	python -m pytest --pyargs vega_datasets --doctest-modules --cov=vega_datasets --cov-report html
+	python setup.py build &&\
+	  cd build/lib &&\
+	  python -m pytest --pyargs --doctest-modules --cov=altair_transform --cov-report html vega_datasets
