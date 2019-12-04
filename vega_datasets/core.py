@@ -295,7 +295,7 @@ class Stocks(Dataset):
         data : DataFrame
             parsed data
         """
-        __doc__ = super(Stocks, self).__call__.__doc__
+        __doc__ = super(Stocks, self).__call__.__doc__  # noqa:F841
         data = super(Stocks, self).__call__(use_local=use_local, **kwargs)
         if pivoted:
             data = data.pivot(index="date", columns="symbol", values="price")
@@ -336,7 +336,7 @@ class Miserables(Dataset):
     """
 
     def __call__(self, use_local=True, **kwargs):
-        __doc__ = super(Miserables, self).__call__.__doc__
+        __doc__ = super(Miserables, self).__call__.__doc__  # noqa:F841
         dct = json.loads(bytes_decode(self.raw(use_local=use_local)), **kwargs)
         nodes = pd.DataFrame.from_records(dct["nodes"], index="index")
         links = pd.DataFrame.from_records(dct["links"])
@@ -378,7 +378,7 @@ class US_10M(Dataset):
     """
 
     def __call__(self, use_local=True, **kwargs):
-        __doc__ = super(US_10M, self).__call__.__doc__
+        __doc__ = super(US_10M, self).__call__.__doc__  # noqa:F841
         return json.loads(bytes_decode(self.raw(use_local=use_local)), **kwargs)
 
 
@@ -392,7 +392,7 @@ class World_110M(Dataset):
     """
 
     def __call__(self, use_local=True, **kwargs):
-        __doc__ = super(World_110M, self).__call__.__doc__
+        __doc__ = super(World_110M, self).__call__.__doc__  # noqa:F841
         return json.loads(bytes_decode(self.raw(use_local=use_local)), **kwargs)
 
 
