@@ -1,6 +1,9 @@
 Change Log
 ==========
 
+Release v0.9 (unreleased)
+-------------------------
+
 Release v0.8 (Dec 14, 2019)
 ---------------------------
 - Include all data from [vega-datasets v1.29.0](https://github.com/vega/vega-datasets/releases/tag/v1.29.0)
