@@ -1,4 +1,5 @@
 import pandas as pd
+from pandas.testing import assert_frame_equal
 import pytest
 
 from vega_datasets import data, local_data
@@ -14,9 +15,9 @@ def test_load_local_dataset(name):
     df2 = loader()  # equivalent to data.dataset_name()
     df3 = local_data(name)
     df4 = local_loader()  # equivalent to local_data.dataset_name()
-    assert df1.equals(df2)
-    assert df1.equals(df3)
-    assert df1.equals(df4)
+    assert_frame_equal(df1, df2)
+    assert_frame_equal(df1, df3)
+    assert_frame_equal(df1, df4)
 
     raw1 = loader.raw()
     raw2 = local_loader.raw()
@@ -79,6 +80,7 @@ def test_cars_column_names():
         ("seattle-weather", "date"),
         ("seattle-temps", "date"),
         ("sf-temps", "date"),
+        ("ohlc", "date"),
     ],
 )
 def test_date_types(name, col):
