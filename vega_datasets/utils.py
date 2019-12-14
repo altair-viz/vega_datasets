@@ -1,8 +1,9 @@
 from vega_datasets.core import Dataset
-from urllib.request import urlopen, HTTPError, URLError
+from urllib.request import urlopen
+from urllib.error import HTTPError, URLError
 
 
-def connection_ok():
+def connection_ok() -> bool:
     """Check web connection.
     Returns True if web connection is OK, False otherwise.
     """

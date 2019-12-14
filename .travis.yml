@@ -16,6 +16,7 @@ matrix:
       install:
       script:
         - black --check .
+        - mypy vega_datasets
         - flake8 vega_datasets
 
 env:

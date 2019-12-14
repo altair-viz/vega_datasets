@@ -28,6 +28,10 @@ jobs:
       run: |
         pip install black
         black --check .
+    - name: Check types with mypy
+      run: |
+        pip install mypy
+        mypy vega_datasets
     - name: Test with pytest
       run: |
         pip install pytest
