@@ -15,5 +15,4 @@ exclude = '''
   | dist
   | tools/vega-datasets
 )/
-| altair_transform/utils/_parser_Parser_parsetab.py
 '''

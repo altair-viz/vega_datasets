@@ -3,12 +3,13 @@ import os
 import json
 import pkgutil
 import textwrap
+from typing import Any, Dict, Iterable, List
 from urllib.request import urlopen
 
 import pandas as pd
 
 
-def _load_dataset_info():
+def _load_dataset_info() -> Dict[str, Dict[str, Any]]:
     """This loads dataset info from three package files:
 
     vega_datasets/datasets.json
@@ -18,8 +19,10 @@ def _load_dataset_info():
     It returns a dictionary with dataset information.
     """
 
-    def load_json(path):
+    def load_json(path: str) -> Dict[str, Any]:
         raw = pkgutil.get_data("vega_datasets", path)
+        if raw is None:
+            raise ValueError("Cannot locate package path vega_datasets:{}".format(path))
         return json.loads(raw.decode())
 
     info = load_json("datasets.json")
@@ -90,11 +93,11 @@ class Dataset(object):
     """
     base_url = "https://vega.github.io/vega-datasets/data/"
     _dataset_info = _load_dataset_info()
-    _pd_read_kwds = {}
+    _pd_read_kwds = {}  # type: Dict[str, Any]
     _return_type = pd.DataFrame
 
     @classmethod
-    def init(cls, name):
+    def init(cls, name: str) -> "Dataset":
         """Return an instance of this class or an appropriate subclass"""
         clsdict = {
             subcls.name: subcls
@@ -103,7 +106,7 @@ class Dataset(object):
         }
         return clsdict.get(name, cls)(name)
 
-    def __init__(self, name):
+    def __init__(self, name: str):
         info = self._infodict(name)
         self.name = name
         self.methodname = name.replace("-", "_")
@@ -116,7 +119,7 @@ class Dataset(object):
         self.references = info.get("references", None)
         self.__doc__ = self._make_docstring()
 
-    def _make_docstring(self):
+    def _make_docstring(self) -> str:
         info = self._infodict(self.name)
 
         # construct, indent, and line-wrap dataset description
@@ -131,15 +134,13 @@ class Dataset(object):
         description = "\n".join(wrapper.wrap(description))
 
         # construct, indent, and join references
-        references = info.get("references", [])
-        references = (
-            ".. [{0}] ".format(i + 1) + ref for i, ref in enumerate(references)
-        )
+        reflist = info.get("references", [])  # type: Iterable[str]
+        reflist = (".. [{0}] ".format(i + 1) + ref for i, ref in enumerate(reflist))
         wrapper = textwrap.TextWrapper(
             width=70, initial_indent=4 * " ", subsequent_indent=7 * " "
         )
-        references = ("\n".join(wrapper.wrap(ref)) for ref in references)
-        references = "\n\n".join(references)
+        reflist = ("\n".join(wrapper.wrap(ref)) for ref in reflist)
+        references = "\n\n".join(reflist)  # type: str
         if references.strip():
             references = "References\n    ----------\n" + references
 
@@ -165,18 +166,18 @@ class Dataset(object):
         )
 
     @classmethod
-    def list_datasets(cls):
+    def list_datasets(cls) -> List[str]:
         """Return a list of names of available datasets"""
         return sorted(cls._dataset_info.keys())
 
     @classmethod
-    def list_local_datasets(cls):
+    def list_local_datasets(cls) -> List[str]:
         return sorted(
             name for name, info in cls._dataset_info.items() if info["is_local"]
         )
 
     @classmethod
-    def _infodict(cls, name):
+    def _infodict(cls, name: str) -> Dict[str, str]:
         """load the info dictionary for the given name"""
         info = cls._dataset_info.get(name, None)
         if info is None:
@@ -187,7 +188,7 @@ class Dataset(object):
             )
         return info
 
-    def raw(self, use_local=True):
+    def raw(self, use_local: bool = True) -> bytes:
         """Load the raw dataset from remote URL or local file
 
         Parameters
@@ -198,11 +199,16 @@ class Dataset(object):
             data from an external URL.
         """
         if use_local and self.is_local:
-            return pkgutil.get_data("vega_datasets", self.pkg_filename)
+            out = pkgutil.get_data("vega_datasets", self.pkg_filename)
+            if out is not None:
+                return out
+            raise ValueError(
+                "Cannot locate package path vega_datasets:{}".format(self.pkg_filename)
+            )
         else:
             return urlopen(self.url).read()
 
-    def __call__(self, use_local=True, **kwargs):
+    def __call__(self, use_local: bool = True, **kwargs) -> pd.DataFrame:
         """Load and parse the dataset from remote URL or local file
 
         Parameters
@@ -241,7 +247,7 @@ class Dataset(object):
             )
 
     @property
-    def filepath(self):
+    def filepath(self) -> str:
         if not self.is_local:
             raise ValueError("filepath is only valid for local datasets")
         else:
