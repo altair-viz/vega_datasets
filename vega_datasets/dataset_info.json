@@ -55,6 +55,9 @@
       "http://spreadsheets.latimes.com/la-riots-deaths/"
     ]
   },
+  "ohlc" : {
+    "description" : "This dataset contains the performance of the Chicago Board Options Exchange `Volatility Index <https://en.wikipedia.org/wiki/VIX>`_ in the summer of 2009."
+  },
   "seattle-temps" : {
     "description" : "This dataset contains hourly temperatures in Seattle during the full year of 2010. The dataset is drawn from public-domain `NOAA data <https://www.weather.gov/disclaimer>`_, and transformed using scripts available at http://github.com/vega/vega_datasets/."
   },
