@@ -25,6 +25,7 @@ DATASETS_TO_DOWNLOAD = [
     "iowa-electricity",
     "iris",
     "la-riots",
+    "ohlc",
     "seattle-temps",
     "seattle-weather",
     "sf-temps",

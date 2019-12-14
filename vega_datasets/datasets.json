@@ -7,6 +7,10 @@
     "filename": "airports.csv",
     "format": "csv"
   },
+  "annual-precip": {
+    "filename": "annual-precip.json",
+    "format": "json"
+  },
   "anscombe": {
     "filename": "anscombe.json",
     "format": "json"
@@ -80,8 +84,8 @@
     "format": "json"
   },
   "flights-200k": {
-    "filename": "flights-200k.arrow",
-    "format": "arrow"
+    "filename": "flights-200k.json",
+    "format": "json"
   },
   "flights-20k": {
     "filename": "flights-20k.json",
@@ -183,6 +187,10 @@
     "filename": "obesity.json",
     "format": "json"
   },
+  "ohlc": {
+    "filename": "ohlc.json",
+    "format": "json"
+  },
   "points": {
     "filename": "points.json",
     "format": "json"
@@ -227,6 +235,10 @@
     "filename": "unemployment-across-industries.json",
     "format": "json"
   },
+  "uniform-2d": {
+    "filename": "uniform-2d.json",
+    "format": "json"
+  },
   "us-10m": {
     "filename": "us-10m.json",
     "format": "json"
@@ -239,9 +251,13 @@
     "filename": "us-state-capitals.json",
     "format": "json"
   },
+  "volcano": {
+    "filename": "volcano.json",
+    "format": "json"
+  },
   "weather": {
-    "filename": "weather.csv",
-    "format": "csv"
+    "filename": "weather.json",
+    "format": "json"
   },
   "weball26": {
     "filename": "weball26.json",

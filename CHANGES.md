@@ -3,6 +3,7 @@ Change Log
 
 Release v0.8 (Unreleased)
 -------------------------
+- Add ohlc to local dataset
 
 Release v0.7 (Dec 7, 2018)
 -------------------------
