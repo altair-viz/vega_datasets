@@ -1,9 +1,10 @@
 Change Log
 ==========
 
-Release v0.8 (Unreleased)
--------------------------
-- Add ohlc to local dataset
+Release v0.8 (Dec 14, 2019)
+---------------------------
+- Include all data from [vega-datasets v1.29.0](https://github.com/vega/vega-datasets/releases/tag/v1.29.0)
+- Add ohlc to local datasets
 
 Release v0.7 (Dec 7, 2018)
 -------------------------
