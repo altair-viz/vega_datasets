@@ -41,6 +41,7 @@ setup(
     download_url="http://github.com/altair-viz/vega_datasets",
     license="MIT",
     install_requires=["pandas"],
+    python_requires=">=3.5",
     tests_require=["pytest"],
     packages=find_packages(exclude=["tools"]),
     package_data={
@@ -59,10 +60,10 @@ setup(
         "Intended Audience :: Science/Research",
         "License :: OSI Approved :: MIT License",
         "Natural Language :: English",
-        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
     ],
     project_urls={
         "Bug Reports": "https://github.com/altair-viz/vega_datasets/issues",

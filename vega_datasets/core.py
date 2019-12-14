@@ -1,11 +1,11 @@
+from io import BytesIO
 import os
 import json
 import pkgutil
 import textwrap
+from urllib.request import urlopen
 
 import pandas as pd
-
-from vega_datasets._compat import urlopen, BytesIO, bytes_decode
 
 
 def _load_dataset_info():
@@ -20,7 +20,7 @@ def _load_dataset_info():
 
     def load_json(path):
         raw = pkgutil.get_data("vega_datasets", path)
-        return json.loads(bytes_decode(raw))
+        return json.loads(raw.decode())
 
     info = load_json("datasets.json")
     descriptions = load_json("dataset_info.json")
@@ -337,7 +337,7 @@ class Miserables(Dataset):
 
     def __call__(self, use_local=True, **kwargs):
         __doc__ = super(Miserables, self).__call__.__doc__  # noqa:F841
-        dct = json.loads(bytes_decode(self.raw(use_local=use_local)), **kwargs)
+        dct = json.loads(self.raw(use_local=use_local).decode(), **kwargs)
         nodes = pd.DataFrame.from_records(dct["nodes"], index="index")
         links = pd.DataFrame.from_records(dct["links"])
         return nodes, links
@@ -379,7 +379,7 @@ class US_10M(Dataset):
 
     def __call__(self, use_local=True, **kwargs):
         __doc__ = super(US_10M, self).__call__.__doc__  # noqa:F841
-        return json.loads(bytes_decode(self.raw(use_local=use_local)), **kwargs)
+        return json.loads(self.raw(use_local=use_local).decode(), **kwargs)
 
 
 class World_110M(Dataset):
@@ -393,7 +393,7 @@ class World_110M(Dataset):
 
     def __call__(self, use_local=True, **kwargs):
         __doc__ = super(World_110M, self).__call__.__doc__  # noqa:F841
-        return json.loads(bytes_decode(self.raw(use_local=use_local)), **kwargs)
+        return json.loads(self.raw(use_local=use_local).decode(), **kwargs)
 
 
 class ZIPCodes(Dataset):

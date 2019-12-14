@@ -1,5 +1,5 @@
 from vega_datasets.core import Dataset
-from vega_datasets._compat import urlopen, HTTPError, URLError
+from urllib.request import urlopen, HTTPError, URLError
 
 
 def connection_ok():

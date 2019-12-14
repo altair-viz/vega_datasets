@@ -6,13 +6,14 @@ Usage:
 $ python download_datasets.py
 """
 
+import json
 from os.path import abspath, join, dirname
 import sys
+from urllib.request import urlretrieve
 import json
 
 sys.path.insert(1, abspath(join(dirname(__file__), "..")))
 from vega_datasets.core import Dataset
-from vega_datasets._compat import urlretrieve
 
 DATASETS_TO_DOWNLOAD = [
     "airports",
