@@ -15,7 +15,7 @@ This package has several goals:
 Currently the package bundles a half-dozen datasets, and falls back to using HTTP requests for the others.
 
 ## Installation
-
+``vega_datasets`` is compatible with Python 3.5 or newer. Install with:
 ```
 $ pip install vega_datasets
 ```
