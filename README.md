@@ -2,6 +2,7 @@
 
 [![build status](http://img.shields.io/travis/altair-viz/vega_datasets/master.svg?style=flat)](https://travis-ci.org/altair-viz/vega_datasets)
 [![github actions](https://github.com/altair-viz/vega_datasets/workflows/build/badge.svg)](https://github.com/altair-viz/vega_datasets/actions?query=workflow%3Abuild)
+[![github actions](https://github.com/altair-viz/vega_datasets/workflows/lint/badge.svg)](https://github.com/altair-viz/vega_datasets/actions?query=workflow%3Alint)
 [![code style black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 A Python package for offline access to [vega datasets](https://github.com/vega/vega-datasets).
