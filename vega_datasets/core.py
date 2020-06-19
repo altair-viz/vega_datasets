@@ -412,11 +412,11 @@ class DataLoader(object):
     can call this object and pass the dataset name by string:
 
         >>> from vega_datasets import data
-        >>> df = data('iris')
+        >>> df = data('penguins')
 
     or you can call the associated named method:
 
-        >>> df = data.iris()
+        >>> df = data.penguins()
 
     Optionally, additional parameters can be passed to either of these
 
