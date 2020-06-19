@@ -408,7 +408,7 @@ class ZIPCodes(Dataset):
 class DataLoader(object):
     """Load a dataset from a local file or remote URL.
 
-    There are two ways to call this; for example to load the iris dataset, you
+    There are two ways to call this; for example to load the penguins dataset, you
     can call this object and pass the dataset name by string:
 
         >>> from vega_datasets import data
