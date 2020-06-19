@@ -14,7 +14,7 @@ import sys
 
 
 def main(tag):
-    cwd = os.path.dirname(__file__)
+    cwd = os.path.dirname(os.path.abspath(__file__))
     datasets_src = os.path.join(cwd, "vega-datasets")
     if not os.path.exists(datasets_src):
         print("Cloning vega-datsets...")
