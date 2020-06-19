@@ -9,7 +9,9 @@
   "iowa-electricity": "_data/iowa-electricity.csv",
   "la-riots": "_data/la-riots.csv",
   "ohlc": "_data/ohlc.json",
+  "penguins": "_data/penguins.json",
   "seattle-weather": "_data/seattle-weather.csv",
+  "seattle-weather-hourly-normals": "_data/seattle-weather-hourly-normals.csv",
   "stocks": "_data/stocks.csv",
   "us-employment": "_data/us-employment.csv",
   "wheat": "_data/wheat.json"
