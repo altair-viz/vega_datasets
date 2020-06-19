@@ -6,4 +6,4 @@ __version__ = "0.9.0dev0"
 
 # This is the tag in http://github.com/vega/vega-datasets from
 # which the datasets in this repository are sourced.
-SOURCE_TAG = 'v2.1.0'
+SOURCE_TAG = "v2.1.0"

@@ -16,13 +16,13 @@ def test_download_penguins():
     penguins = data.penguins(use_local=False)
     assert type(penguins) is pd.DataFrame
     assert sorted(penguins.columns) == [
-            'Beak Depth (mm)',
-            'Beak Length (mm)',
-            'Body Mass (g)',
-            'Flipper Length (mm)',
-            'Island',
-            'Sex',
-            'Species'
+        "Beak Depth (mm)",
+        "Beak Length (mm)",
+        "Body Mass (g)",
+        "Flipper Length (mm)",
+        "Island",
+        "Sex",
+        "Species",
     ]
 
     penguins = data.penguins.raw(use_local=False)

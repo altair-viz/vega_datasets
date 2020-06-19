@@ -31,13 +31,13 @@ def test_penguins_column_names():
     penguins = data.penguins()
     assert type(penguins) is pd.DataFrame
     assert sorted(penguins.columns) == [
-            'Beak Depth (mm)',
-            'Beak Length (mm)',
-            'Body Mass (g)',
-            'Flipper Length (mm)',
-            'Island',
-            'Sex',
-            'Species'
+        "Beak Depth (mm)",
+        "Beak Length (mm)",
+        "Body Mass (g)",
+        "Flipper Length (mm)",
+        "Island",
+        "Sex",
+        "Species",
     ]
 
     penguins = data.penguins.raw()
