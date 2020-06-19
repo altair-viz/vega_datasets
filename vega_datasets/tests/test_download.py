@@ -12,19 +12,21 @@ skip_if_no_internet = pytest.mark.skipif(
 
 
 @skip_if_no_internet
-def test_download_iris():
-    iris = data.iris(use_local=False)
-    assert type(iris) is pd.DataFrame
-    assert sorted(iris.columns) == [
-        "petalLength",
-        "petalWidth",
-        "sepalLength",
-        "sepalWidth",
-        "species",
+def test_download_penguins():
+    penguins = data.penguins(use_local=False)
+    assert type(penguins) is pd.DataFrame
+    assert sorted(penguins.columns) == [
+            'Beak Depth (mm)',
+            'Beak Length (mm)',
+            'Body Mass (g)',
+            'Flipper Length (mm)',
+            'Island',
+            'Sex',
+            'Species'
     ]
 
-    iris = data.iris.raw(use_local=False)
-    assert type(iris) is bytes
+    penguins = data.penguins.raw(use_local=False)
+    assert type(penguins) is bytes
 
 
 def test_stock_date_parsing():

@@ -27,19 +27,21 @@ def test_load_local_dataset(name):
     assert type(raw1) is type(raw2) is type(raw3) is type(raw4) is bytes
 
 
-def test_iris_column_names():
-    iris = data.iris()
-    assert type(iris) is pd.DataFrame
-    assert sorted(iris.columns) == [
-        "petalLength",
-        "petalWidth",
-        "sepalLength",
-        "sepalWidth",
-        "species",
+def test_penguins_column_names():
+    penguins = data.penguins()
+    assert type(penguins) is pd.DataFrame
+    assert sorted(penguins.columns) == [
+            'Beak Depth (mm)',
+            'Beak Length (mm)',
+            'Body Mass (g)',
+            'Flipper Length (mm)',
+            'Island',
+            'Sex',
+            'Species'
     ]
 
-    iris = data.iris.raw()
-    assert type(iris) is bytes
+    penguins = data.penguins.raw()
+    assert type(penguins) is bytes
 
 
 def test_stocks_column_names():
@@ -78,8 +80,7 @@ def test_cars_column_names():
         ("la-riots", "death_date"),
         ("iowa-electricity", "year"),
         ("seattle-weather", "date"),
-        ("seattle-temps", "date"),
-        ("sf-temps", "date"),
+        ("seattle-weather-hourly-normals", "date"),
         ("ohlc", "date"),
     ],
 )

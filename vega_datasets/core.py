@@ -352,18 +352,13 @@ class Miserables(Dataset):
         return nodes, links
 
 
-class SeattleTemps(Dataset):
-    name = "seattle-temps"
-    _pd_read_kwds = {"parse_dates": ["date"]}
-
-
 class SeattleWeather(Dataset):
     name = "seattle-weather"
     _pd_read_kwds = {"parse_dates": ["date"]}
 
 
-class SFTemps(Dataset):
-    name = "sf-temps"
+class SeattleWeatherHourlyNormals(Dataset):
+    name = "seattle-weather-hourly-normals"
     _pd_read_kwds = {"parse_dates": ["date"]}
 
 
