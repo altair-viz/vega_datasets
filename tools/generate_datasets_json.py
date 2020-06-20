@@ -28,7 +28,7 @@ def main(tag):
     datasets_file = os.path.abspath(
         os.path.join(cwd, "..", "vega_datasets", "datasets.json")
     )
-    core_file = os.path.abspath(os.path.join(cwd, "..", "vega_datasets", "__init__.py"))
+    core_file = os.path.abspath(os.path.join(cwd, "..", "vega_datasets", "core.py"))
 
     print(f"Extracting datasets from {data_dir}")
     datasets = {}
