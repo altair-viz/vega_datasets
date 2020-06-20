@@ -47,7 +47,7 @@ If you're curious about the source data, you can access the URL for any of the a
 
 ```python
 >>> data.iris.url
-'https://vega.github.io/vega-datasets/data/iris.json'
+'https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/iris.json'
 ```
 
 For datasets bundled with the package, you can also find their location on disk:
