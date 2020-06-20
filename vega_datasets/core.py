@@ -5,7 +5,7 @@ import pkgutil
 import textwrap
 from typing import Any, Dict, Iterable, List
 from urllib.request import urlopen
-
+from vega_datasets import SOURCE_TAG
 import pandas as pd
 
 
@@ -91,7 +91,7 @@ class Dataset(object):
     _reference_info = """
     For information on this dataset, see https://github.com/vega/vega-datasets/
     """
-    base_url = "https://vega.github.io/vega-datasets/data/"
+    base_url = "https://cdn.jsdelivr.net/npm/vega-datasets@" + SOURCE_TAG + "/data/"
     _dataset_info = _load_dataset_info()
     _pd_read_kwds = {}  # type: Dict[str, Any]
     _return_type = pd.DataFrame
