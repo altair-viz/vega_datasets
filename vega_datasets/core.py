@@ -5,8 +5,11 @@ import pkgutil
 import textwrap
 from typing import Any, Dict, Iterable, List
 from urllib.request import urlopen
-from vega_datasets import SOURCE_TAG
 import pandas as pd
+
+# This is the tag in http://github.com/vega/vega-datasets from
+# which the datasets in this repository are sourced.
+SOURCE_TAG = "v1.29.0"
 
 
 def _load_dataset_info() -> Dict[str, Dict[str, Any]]:

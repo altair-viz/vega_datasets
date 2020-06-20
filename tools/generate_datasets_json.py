@@ -28,7 +28,7 @@ def main(tag):
     datasets_file = os.path.abspath(
         os.path.join(cwd, "..", "vega_datasets", "datasets.json")
     )
-    init_file = os.path.abspath(os.path.join(cwd, "..", "vega_datasets", "__init__.py"))
+    core_file = os.path.abspath(os.path.join(cwd, "..", "vega_datasets", "__init__.py"))
 
     print(f"Extracting datasets from {data_dir}")
     datasets = {}
@@ -40,11 +40,11 @@ def main(tag):
     with open(datasets_file, "w") as f:
         json.dump(datasets, f, indent=2, sort_keys=True)
 
-    print("Updating init file")
+    print("Updating SOURCE_TAG in core file")
     subprocess.check_call(
-        ["sed", "-i", ".bak", f"s/SOURCE_TAG.*/SOURCE_TAG = {tag!r}/g", init_file]
+        ["sed", "-i", ".bak", f"s/SOURCE_TAG.*/SOURCE_TAG = {tag!r}/g", core_file]
     )
-    subprocess.check_call(["rm", f"{init_file}.bak"])
+    subprocess.check_call(["rm", f"{core_file}.bak"])
 
 
 if __name__ == "__main__":
