@@ -3,6 +3,7 @@ Change Log
 
 Release v0.9 (unreleased)
 -------------------------
+- Change urls to use jsDelivr (a fast CDN) with a fixed version number, instead of GitHub.
 
 Release v0.8 (Dec 14, 2019)
 ---------------------------
