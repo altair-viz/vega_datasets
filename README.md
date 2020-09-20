@@ -30,31 +30,31 @@ The main object in this library is ``data``:
 ```
 
 It contains attributes that access all available datasets, locally if
-available. For example, here is the well-known iris dataset:
+available. For example, here is the [Palmer penguins](https://github.com/allisonhorst/palmerpenguins) dataset:
 
 ```python
->>> df = data.iris()
+>>> df = data.penguins()
 >>> df.head()
-   petalLength  petalWidth  sepalLength  sepalWidth species
-0          1.4         0.2          5.1         3.5  setosa
-1          1.4         0.2          4.9         3.0  setosa
-2          1.3         0.2          4.7         3.2  setosa
-3          1.5         0.2          4.6         3.1  setosa
-4          1.4         0.2          5.0         3.6  setosa
+  Species     Island  Beak Length (mm)  Beak Depth (mm)  Flipper Length (mm)  Body Mass (g)     Sex
+0  Adelie  Torgersen              39.1             18.7                181.0         3750.0    MALE
+1  Adelie  Torgersen              39.5             17.4                186.0         3800.0  FEMALE
+2  Adelie  Torgersen              40.3             18.0                195.0         3250.0  FEMALE
+3  Adelie  Torgersen               NaN              NaN                  NaN            NaN    None
+4  Adelie  Torgersen              36.7             19.3                193.0         3450.0  FEMALE
 ```
 
 If you're curious about the source data, you can access the URL for any of the available datasets:
 
 ```python
->>> data.iris.url
-'https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/iris.json'
+>>> data.penguins.url
+'https://cdn.jsdelivr.net/npm/vega-datasets@2.1.0/data/penguins.json'
 ```
 
 For datasets bundled with the package, you can also find their location on disk:
 
 ```python
->>> data.iris.filepath
-'/lib/python3.6/site-packages/vega_datasets/data/iris.json'
+>>> data.penguins.filepath
+'/lib/python3.8/site-packages/vega_datasets/data/penguins.json'
 ```
 
 ## Available Datasets
@@ -63,7 +63,7 @@ To list all the available datsets, use ``list_datasets``:
 
 ```python
 >>> data.list_datasets()
-['7zip', 'airports', 'anscombe', 'barley', 'birdstrikes', 'budget', 'budgets', 'burtin', 'cars', 'climate', 'co2-concentration', 'countries', 'crimea', 'disasters', 'driving', 'earthquakes', 'ffox', 'flare', 'flare-dependencies', 'flights-10k', 'flights-200k', 'flights-20k', 'flights-2k', 'flights-3m', 'flights-5k', 'flights-airport', 'gapminder', 'gapminder-health-income', 'gimp', 'github', 'graticule', 'income', 'iris', 'jobs', 'londonBoroughs', 'londonCentroids', 'londonTubeLines', 'lookup_groups', 'lookup_people', 'miserables', 'monarchs', 'movies', 'normal-2d', 'obesity', 'points', 'population', 'population_engineers_hurricanes', 'seattle-temps', 'seattle-weather', 'sf-temps', 'sp500', 'stocks', 'udistrict', 'unemployment', 'unemployment-across-industries', 'us-10m', 'us-employment', 'us-state-capitals', 'weather', 'weball26', 'wheat', 'world-110m', 'zipcodes']
+['7zip', 'airports', 'annual-precip', 'anscombe', 'barley', 'birdstrikes', 'budget', 'budgets', 'burtin', 'cars', 'co2-concentration', 'countries', 'crimea', 'disasters', 'driving', 'earthquakes', 'ffox', 'flare', 'flare-dependencies', 'flights-10k', 'flights-200k', 'flights-20k', 'flights-2k', 'flights-3m', 'flights-5k', 'flights-airport', 'football', 'gapminder', 'gapminder-health-income', 'gimp', 'github', 'income', 'iowa-electricity', 'jobs', 'la-riots', 'londonBoroughs', 'londonCentroids', 'londonTubeLines', 'lookup_groups', 'lookup_people', 'miserables', 'monarchs', 'movies', 'normal-2d', 'obesity', 'ohlc', 'penguins', 'points', 'political-contributions', 'population', 'population_engineers_hurricanes', 'seattle-weather', 'seattle-weather-hourly-normals', 'sp500', 'stocks', 'udistrict', 'unemployment', 'unemployment-across-industries', 'uniform-2d', 'us-10m', 'us-employment', 'us-state-capitals', 'volcano', 'weather', 'wheat', 'windvectors', 'world-110m', 'zipcodes']
 ```
 
 To list local datasets (i.e. those that are bundled with the package and can be used without a web connection), use the ``local_data`` object instead:
@@ -71,8 +71,7 @@ To list local datasets (i.e. those that are bundled with the package and can be 
 ```python
 >>> from vega_datasets import local_data
 >>> local_data.list_datasets()
-
-['airports', 'anscombe', 'barley', 'burtin', 'cars', 'crimea', 'driving', 'iowa-electricity', 'iris', 'seattle-temps', 'seattle-weather', 'sf-temps', 'stocks', 'us-employment', "wheat"]
+['airports', 'anscombe', 'barley', 'burtin', 'cars', 'crimea', 'driving', 'iowa-electricity', 'la-riots', 'ohlc', 'penguins', 'seattle-weather', 'seattle-weather-hourly-normals', 'stocks', 'us-employment', 'wheat']
 ```
 
 We plan to add more local datasets in the future, subject to size and licensing constraints. See the [local datasets issue](https://github.com/altair-viz/vega_datasets/issues/1) if you would like to help with this.
@@ -82,9 +81,9 @@ We plan to add more local datasets in the future, subject to size and licensing 
 If you want more information about any dataset, you can use the ``description`` property:
 
 ```python
->>> data.iris.description
-'This classic dataset contains lengths and widths of petals and sepals for 150 iris flowers, drawn from three species. It was introduced by R.A. Fisher in 1936 [1]_.'
+>>> data.penguins.description
+'Palmer Archipelago (Antarctica) penguin data collected and made available by Dr. Kristen Gorman and the Palmer Station, Antarctica LTER, a member of the Long Term Ecological Research Network. For more information visit https://github.com/allisonhorst/penguins.'
 ```
 
-This information is also part of the ``data.iris`` doc string.
+This information is also part of the ``data.penguins`` doc string.
 Descriptions are not yet included for all the datasets in the package; we hope to add more information on this in the future.

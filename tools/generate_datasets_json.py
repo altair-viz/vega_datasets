@@ -14,7 +14,7 @@ import sys
 
 
 def main(tag):
-    cwd = os.path.dirname(__file__)
+    cwd = os.path.dirname(os.path.abspath(__file__))
     datasets_src = os.path.join(cwd, "vega-datasets")
     if not os.path.exists(datasets_src):
         print("Cloning vega-datsets...")
@@ -42,7 +42,7 @@ def main(tag):
 
     print("Updating SOURCE_TAG in core file")
     subprocess.check_call(
-        ["sed", "-i", ".bak", f"s/SOURCE_TAG.*/SOURCE_TAG = {tag!r}/g", core_file]
+        ["sed", "-i", ".bak", f"s/SOURCE_TAG\ =\ .*/SOURCE_TAG = {tag!r}/g", core_file]
     )
     subprocess.check_call(["rm", f"{core_file}.bak"])
 

@@ -9,7 +9,7 @@ import pandas as pd
 
 # This is the tag in http://github.com/vega/vega-datasets from
 # which the datasets in this repository are sourced.
-SOURCE_TAG = "v1.29.0"
+SOURCE_TAG = "v2.1.0"
 
 
 def _load_dataset_info() -> Dict[str, Dict[str, Any]]:
@@ -352,18 +352,13 @@ class Miserables(Dataset):
         return nodes, links
 
 
-class SeattleTemps(Dataset):
-    name = "seattle-temps"
-    _pd_read_kwds = {"parse_dates": ["date"]}
-
-
 class SeattleWeather(Dataset):
     name = "seattle-weather"
     _pd_read_kwds = {"parse_dates": ["date"]}
 
 
-class SFTemps(Dataset):
-    name = "sf-temps"
+class SeattleWeatherHourlyNormals(Dataset):
+    name = "seattle-weather-hourly-normals"
     _pd_read_kwds = {"parse_dates": ["date"]}
 
 
@@ -413,15 +408,15 @@ class ZIPCodes(Dataset):
 class DataLoader(object):
     """Load a dataset from a local file or remote URL.
 
-    There are two ways to call this; for example to load the iris dataset, you
+    There are two ways to call this; for example to load the penguins dataset, you
     can call this object and pass the dataset name by string:
 
         >>> from vega_datasets import data
-        >>> df = data('iris')
+        >>> df = data('penguins')
 
     or you can call the associated named method:
 
-        >>> df = data.iris()
+        >>> df = data.penguins()
 
     Optionally, additional parameters can be passed to either of these
 
