@@ -94,7 +94,7 @@ class Dataset(object):
     _reference_info = """
     For information on this dataset, see https://github.com/vega/vega-datasets/
     """
-    base_url = "https://cdn.jsdelivr.net/npm/vega-datasets@" + SOURCE_TAG = 'v2.1.0'
+    base_url = "https://cdn.jsdelivr.net/npm/vega-datasets@" + SOURCE_TAG + "/data/"
     _dataset_info = _load_dataset_info()
     _pd_read_kwds = {}  # type: Dict[str, Any]
     _return_type = pd.DataFrame
