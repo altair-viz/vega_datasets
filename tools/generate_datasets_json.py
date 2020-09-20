@@ -42,7 +42,7 @@ def main(tag):
 
     print("Updating SOURCE_TAG in core file")
     subprocess.check_call(
-        ["sed", "-i", ".bak", f"s/SOURCE_TAG.*/SOURCE_TAG = {tag!r}/g", core_file]
+        ["sed", "-i", ".bak", f"s/SOURCE_TAG\ =\ .*/SOURCE_TAG = {tag!r}/g", core_file]
     )
     subprocess.check_call(["rm", f"{core_file}.bak"])
 
