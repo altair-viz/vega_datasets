@@ -9,7 +9,7 @@ import pandas as pd
 
 # This is the tag in http://github.com/vega/vega-datasets from
 # which the datasets in this repository are sourced.
-SOURCE_TAG = "v1.29.0"
+SOURCE_TAG = 'v2.1.0'
 
 
 def _load_dataset_info() -> Dict[str, Dict[str, Any]]:
@@ -94,7 +94,7 @@ class Dataset(object):
     _reference_info = """
     For information on this dataset, see https://github.com/vega/vega-datasets/
     """
-    base_url = "https://cdn.jsdelivr.net/npm/vega-datasets@" + SOURCE_TAG + "/data/"
+    base_url = "https://cdn.jsdelivr.net/npm/vega-datasets@" + SOURCE_TAG = 'v2.1.0'
     _dataset_info = _load_dataset_info()
     _pd_read_kwds = {}  # type: Dict[str, Any]
     _return_type = pd.DataFrame
