@@ -1,9 +1,10 @@
 Change Log
 ==========
 
-Release v0.9 (unreleased)
--------------------------
+Release v0.9 (Nov 26, 2020)
+---------------------------
 - Change urls to use jsDelivr (a fast CDN) with a fixed version number, instead of GitHub.
+  This fixes the URLs broken by the vega-datasets 2.0 release.
 
 Release v0.8 (Dec 14, 2019)
 ---------------------------
