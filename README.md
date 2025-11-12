@@ -1,3 +1,25 @@
+## Notice: `vega_datasets` Repository Archived
+
+The **`vega_datasets`** repository has been archived. All datasets previously available through `vega_datasets` are now **integrated directly into Altair**, providing a simpler and more reliable experience.
+
+For details on this change and recommended migration strategies, see [Altair PR #3848](https://github.com/vega/altair/pull/3848).
+
+### Migration Path
+
+Migrating from the Python `vega_datasets` package to the new built-in `altair.datasets` module requires only a single import change:
+
+```python
+# old (deprecated)
+from vega_datasets import data
+
+# new (recommended)
+from altair.datasets import data
+```
+
+The new `altair.datasets` module provides the same familiar datasets with improved portability and no external dependency.
+
+---
+
 # vega_datasets
 
 [![build status](http://img.shields.io/travis/altair-viz/vega_datasets/master.svg?style=flat)](https://travis-ci.org/altair-viz/vega_datasets)
